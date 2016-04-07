@@ -36,13 +36,25 @@
   var closeButton = document.createElement('eager-dialog-close');
   closeButton.addEventListener('click', hide);
 
+  var iframe = document.createElement('iframe');
+  iframe.name = "frame";
+  document.body.appendChild(iframe);
+
+  var headingEmail = options.headingEmail;
+
+  var messageEmail = options.messageEmail;
+
   let email;
+
+  function updateText(){
+        headingEmail = "Submitted!"
+        messageEmail = "You have been signed up. Thank you!";
+      }
 
   function render() {
     dialog.setAttribute('eager-theme', options.theme);
 
     var html = '';
-    // I can link the button and picture link through js, but will it link in the install.json?
     if (options.imageToggle) {
       html += '<img src="' + options.image + '">';
     }
@@ -56,21 +68,19 @@
       }
 
       if (options.goal === "email"){
-        html += '<h2>' + options.headingEmail + '</h2>';
-        html += options.messageEmail.html;
-        html += '<form><input class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" class="emailButton">' + options.emailButtonText + '</button></form>'
+        html += '<h2>' + headingEmail + '</h2>';
+        html += messageEmail.html;
+        html += '<form target="frame"><input class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" class="emailButton" onClick="updateText()">' + options.emailButtonText + '</button></form>'
       }
 
       if (options.goal === "page") {
         html += '<h2>' + options.headingPage + '</h2>';
         html += options.messagePage.html;
-        html += '<form action="' + options.buttonLink + '">' + '<input class="inputButton" type="submit" value="' + options.buttonText + '">' + '</form>';
+        html += '<form target="frame" action="' + options.buttonLink + '">' + '<input class="inputButton" type="submit" value="' + options.buttonText + '">' + '</form>';
       }
 
       html += '</eager-dialog-content-text>';
     }
-
-    
 
     content.innerHTML = html;
     content.appendChild(closeButton);

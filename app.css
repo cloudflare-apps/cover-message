@@ -174,3 +174,6 @@ input.inputButton{
       box-shadow: none !important;
       text-overflow: ellipsis !important
     }
+iframe{
+   border: 0px;
+}
