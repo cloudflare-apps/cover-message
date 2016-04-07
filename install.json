@@ -55,26 +55,26 @@
             },
             "type": "string",
             "default": "Enter your email address"
-          },
-          "emailButtonTextColor": {
-          "order": 4,
-          "title": "Email Button Text Color",
-          "showIf": {
-            "goal": "email"
-            },
-          "type": "string",
-          "format": "color",
-          "default": "ffffff"
-          },
+          },          
           "emailButtonColor": {
-          "order": 5,
+          "order": 4,
           "title": "Email Button Color",
           "showIf": {
             "goal": "email"
             },
           "type": "string",
           "format": "color",
-          "default": "ffffff"
+          "default": "#811515"
+          },
+          "emailButtonTextColor": {
+          "order": 5,
+          "title": "Email Button Text Color",
+          "showIf": {
+            "goal": "email"
+            },
+          "type": "string",
+          "format": "color",
+          "default": "#a4747f"
           },
           "headingEmail": {
             "order": 6,
@@ -122,7 +122,7 @@
             },
           "type": "string",
           "format": "color",
-          "default": "ffffff"
+          "default": "#811515"
           },
         "buttonTextColor": {
           "order": 11,
@@ -132,7 +132,7 @@
             },
           "type": "string",
           "format": "color",
-          "default": "ffffff"
+          "default": "#a4747f"
           },
           "headingPage": {
             "order": 12,
