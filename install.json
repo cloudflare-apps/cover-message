@@ -1,0 +1,229 @@
+{
+  "resources": {
+    "body": [
+      {
+        "type": "style",
+        "src": "./app.css"
+      },
+      {
+        "type": "script",
+        "src": "./app.js"
+      }
+    ]
+  },
+  "preview": {
+    "handlers": [
+      {
+        "options": ["*"],
+        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+      }
+    ]
+  },
+  "options": {
+    "properties": {
+      "goal": {
+        "order": 1,
+        "title": "What do you want to do?",
+        "type": "string",
+        "format": "radios",
+        "enum": [
+        "email",
+        "page",
+        "message"
+        ],
+        "enumNames": {
+        "email": "Sign them up for a newsletter",
+        "page": "Redirect them to a special page",
+        "message": "Just show a message"
+        },
+        "default": "email"
+        },
+        "emailButtonText": {
+          "order": 2,
+          "title": "Email Button Text",
+          "showIf": {
+            "goal": "email"
+          },
+          "type": "string",
+          "default": "Sign up now!"
+          },
+          "emailPlaceholderText": {
+            "order": 3,
+            "title": "Email Placeholder Text",
+            "showIf": {
+              "goal": "email"
+            },
+            "type": "string",
+            "default": "Enter your email address"
+          },
+          "emailButtonColor": {
+          "order": 4,
+          "title": "Email Button Color",
+          "showIf": {
+            "goal": "email"
+            },
+          "type": "string",
+          "format": "color",
+          "default": "ffffff"
+          },
+          "headingEmail": {
+            "order": 5,
+            "title": "Heading",
+            "showIf": {
+              "goal": "email"
+            },
+            "type": "string",
+            "default": "Bop with the kids!"
+          },
+          "messageEmail": {
+            "order": 6,
+            "title": "Message",
+            "showIf": {
+              "goal": "email"
+            },
+            "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
+            "type": "string",
+            "format": "markdown",
+            "default": "Come join the cool cats and stay in the loop!"
+          },
+        "buttonText": {
+          "order": 7,
+          "title": "Button text",
+          "showIf": {
+            "goal": "page"
+            },
+          "type": "string",
+          "default": "Let's go!"
+        },
+        "buttonLink": {
+          "order": 8,
+          "title": "Button Link",
+          "showIf": {
+            "goal": "page"
+            },
+          "type": "string",
+          "default": "http://eager.io"
+        },
+        "buttonColor": {
+          "order": 9,
+          "title": "Button Color",
+          "showIf": {
+            "goal": "page"
+            },
+          "type": "string",
+          "format": "color",
+          "default": "ffffff"
+          },
+          "headingPage": {
+            "order": 10,
+            "title": "Heading",
+            "showIf": {
+              "goal": "page"
+            },
+            "type": "string",
+            "default": "Discounts up to 75% off!"
+          },
+          "messagePage": {
+            "order": 11,
+            "title": "Message",
+            "showIf": {
+              "goal": "page"
+            },
+            "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
+            "type": "string",
+            "format": "markdown",
+            "default": "Click now or forever hold your peace"
+          },
+        "headingMessage": {
+        "order": 12,
+        "title": "Heading",
+        "showIf": {
+          "goal": "message"
+        },
+        "type": "string",
+        "default": "Happy New Year!"
+      },
+      "messageMessage": {
+        "order": 13,
+        "title": "Message",
+        "showIf": {
+          "goal": "message"
+        },
+        "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
+        "type": "string",
+        "format": "markdown",
+        "default": "Everyone here would love to wish you a wonderful and happy New Year.\n\nSome [cool things](https://en.wikipedia.org/wiki/2016#Predicted_and_scheduled_events) are going to happen in 2016, get excited!\n\n— Your Friends"
+      },   
+      "imageToggle": {
+        "order": 14,
+        "type": "boolean",
+        "title": "Show a Cover Image",
+        "default": true
+      },
+      "image": {
+        "order": 15,
+        "title": "Cover Image",
+        "description": "Optionally display an image above your message.",
+        "type": "string",
+        "format": "image",
+        "showIf": "imageToggle",
+        "default": "//eager-app-images.imgix.net/IaYSbxMqTBGYpIrJJzSb_2016.png"
+      },
+      "theme": {
+        "order": 16,
+        "title": "Theme",
+        "type": "string",
+        "enum": [
+          "light",
+          "dark"
+        ],
+        "enumNames": {
+          "light": "Light",
+          "dark": "Dark"
+        },
+        "default": "light"
+      },
+      "showFrequency": {
+        "order": 17,
+        "title": "Show frequency",
+        "type": "string",
+        "default": "once",
+        "enum": ["once", "always"],
+        "enumNames": {
+          "once": "Show to each visitor once",
+          "always": "Show on every page view"
+        }
+      },
+      "hideBeforeToggle": {
+        "order": 18,
+        "type": "boolean",
+        "title": "Hide the message before a specific date",
+        "default": false
+      },
+      "hideBefore": {
+        "order": 19,
+        "type": "string",
+        "format": "date",
+        "title": "Hide Before",
+        "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors before this date.",
+        "showIf": "hideBeforeToggle",
+        "default": "30-12-2016"
+      },
+      "hideAfterToggle": {
+        "order": 20,
+        "type": "boolean",
+        "title": "Hide the message after a specific date",
+        "default": false
+      },
+      "hideAfter": {
+        "order": 21,
+        "type": "string",
+        "format": "date",
+        "title": "Hide After",
+        "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors after this date.",
+        "showIf": "hideAfterToggle",
+        "default": "1-1-2017"
+      }
+    }
+  }
+}

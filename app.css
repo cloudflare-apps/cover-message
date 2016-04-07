@@ -1,0 +1,176 @@
+
+eager-backdrop {
+  position: fixed;
+  z-index: 20004;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .8);
+  display: none;
+}
+
+  eager-backdrop.eager-is-shown {
+    display: block;
+  }
+
+eager-dialog {
+  cursor: default;
+  position: absolute;
+  z-index: 20005;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 2em;
+  box-sizing: border-box;
+}
+
+  @media (max-width: 768px) {
+    eager-dialog {
+      padding: 1em;
+    }
+  }
+
+  eager-dialog.eager-is-shown {
+    display: block;
+    display: flex;
+  }
+
+eager-dialog-content {
+  position: relative;
+  display: block;
+  color: #444;
+  max-width: 37em;
+}
+
+  eager-dialog-content, eager-dialog-content * {
+    font-family: inherit;
+  }
+
+  eager-dialog-content-text {
+    -webkit-font-smoothing: antialiased;
+    display: block;
+    padding: 2em;
+  }
+
+  eager-dialog[eager-theme="light"] eager-dialog-content-text {
+    background: #fff;
+    color: #555;
+  }
+
+  eager-dialog[eager-theme="dark"] eager-dialog-content-text {
+    background: #000;
+    color: #eee;
+  }
+
+  @media (max-width: 568px) {
+    eager-dialog-content-text {
+      padding: 1.5em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    eager-dialog-content-text {
+      padding: 1em;
+    }
+  }
+
+  eager-dialog-content-text > * {
+    text-indent: 0;
+    margin: 1em 0;
+  }
+
+  eager-dialog-content-text a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  eager-dialog-content-text > *:first-child {
+    margin-top: 0
+  }
+
+  eager-dialog-content-text > *:last-child {
+    margin-bottom: 0
+  }
+
+  eager-dialog-content img {
+    display: block;
+    max-width: 100%;
+  }
+
+eager-dialog-close:after {
+  position: absolute;
+  display: block;
+  content: "✕";
+  cursor: pointer;
+  z-index: 20007;
+  top: 1em;
+  right: 1em;
+  height: 2em;
+  width: 2em;
+  font-size: 1.25em;
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  line-height: 2;
+  color: rgba(0, 0, 0, .35);
+  border-radius: 3px;
+}
+
+  eager-dialog-close:hover:after {
+    background: rgba(255, 255, 255, .35);
+    color: #000;
+  }
+input.inputButton{
+      position: relative !important;
+      display: inline-block !important;
+      vertical-align: baseline !important;
+      max-width: 100% !important;
+      cursor: pointer !important;
+      width: auto !important;
+      background: #eee !important;
+      padding: .65em 1.6em .6em .9em !important;
+      height: auto !important;
+      border: 0 !important;
+      border-radius: .1875em;
+      font-weight: bold !important;
+      text-transform: uppercase !important;
+      letter-spacing: .08em;
+      text-indent: .08em;
+      font-size: .9em !important;
+      opacity: .85;
+      max-width: 16em !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      box-shadow: none !important;
+      text-overflow: ellipsis !important
+    }
+
+.emailButton{
+      position: relative !important;
+      display: inline-block !important;
+      vertical-align: baseline !important;
+      max-width: 100% !important;
+      cursor: pointer !important;
+      width: auto !important;
+      background: #eee !important;
+      padding: .65em 1.6em .6em .9em !important;
+      height: auto !important;
+      border: 0 !important;
+      border-radius: .1875em;
+      font-weight: bold !important;
+      text-transform: uppercase !important;
+      letter-spacing: .08em;
+      text-indent: .08em;
+      font-size: .9em !important;
+      opacity: .85;
+      max-width: 16em !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      box-shadow: none !important;
+      text-overflow: ellipsis !important
+    }
