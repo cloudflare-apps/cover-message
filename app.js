@@ -18,6 +18,8 @@
   function setOptions(opts) {
     options = opts;
 
+    // updateColors();
+
     render();
 
     if (!shown)
@@ -63,13 +65,13 @@
       if (options.goal === "email"){
         html += '<h2>' + headingEmail + '</h2>';
         html += messageEmail.html;
-        html += '<iframe name="votar" style="display:none;"></iframe><form target="votar"><input class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" class="emailButton" onClick="updateText()">' + options.emailButtonText + '</button></form>'
+        html += '<form><input class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button id="emailButton" type="submit" class="emailButton" onClick="updateText()" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
       }
 
       if (options.goal === "page") {
         html += '<h2>' + options.headingPage + '</h2>';
         html += options.messagePage.html;
-        html += '<form target="frame" action="' + options.buttonLink + '">' + '<input class="inputButton" type="submit" value="' + options.buttonText + '">' + '</form>';
+        html += '<form target="frame" action="' + options.buttonLink + '">' + '<input style="color: ' + options.buttonTextColor + '; background-color: ' + options.buttonColor + '" class="inputButton" type="submit" value="' + options.buttonText + '">' + '</form>';
       }
 
       html += '</eager-dialog-content-text>';
@@ -79,12 +81,11 @@
     content.appendChild(closeButton);
   }
 
-  function updateText(){
-        headingEmail = "Submitted!";
-        messageEmail = "You have been signed up. Thank you!";
-        render();
-      }
+  // var thing = document.getElementById("emailButton")
 
+  // updateColors = function(){
+  //   thing.color = options.emailButtonColor;
+  // }
 
 
   // function email(){
