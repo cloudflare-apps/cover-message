@@ -36,20 +36,13 @@
   var closeButton = document.createElement('eager-dialog-close');
   closeButton.addEventListener('click', hide);
 
-  var iframe = document.createElement('iframe');
-  iframe.name = "frame";
-  document.body.appendChild(iframe);
-
   var headingEmail = options.headingEmail;
 
   var messageEmail = options.messageEmail;
 
   let email;
 
-  function updateText(){
-        headingEmail = "Submitted!"
-        messageEmail = "You have been signed up. Thank you!";
-      }
+  
 
   function render() {
     dialog.setAttribute('eager-theme', options.theme);
@@ -70,7 +63,7 @@
       if (options.goal === "email"){
         html += '<h2>' + headingEmail + '</h2>';
         html += messageEmail.html;
-        html += '<form target="frame"><input class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" class="emailButton" onClick="updateText()">' + options.emailButtonText + '</button></form>'
+        html += '<iframe name="votar" style="display:none;"></iframe><form target="votar"><input class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" class="emailButton" onClick="updateText()">' + options.emailButtonText + '</button></form>'
       }
 
       if (options.goal === "page") {
@@ -85,6 +78,14 @@
     content.innerHTML = html;
     content.appendChild(closeButton);
   }
+
+  function updateText(){
+        headingEmail = "Submitted!";
+        messageEmail = "You have been signed up. Thank you!";
+        render();
+      }
+
+
 
   // function email(){
   //   if(addEventListener(mouse or enter on email)){
