@@ -173,3 +173,25 @@ eager-dialog-close:after {
       box-shadow: none !important;
       text-overflow: ellipsis !important
     }
+
+  .input-email{
+    position: relative !important;
+    display: inline-block !important;
+    vertical-align: baseline !important;
+    max-width: 100% !important;
+    width: auto !important;
+    padding: .65em 1.6em .6em .9em !important;
+    height: auto !important;
+    border: 0 !important;
+    border-radius: .1875em;
+    font-weight: bold !important;
+    letter-spacing: .08em;
+    text-indent: .08em;
+    opacity: .85;
+    max-width: 16em !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    box-shadow: none !important;
+    text-overflow: ellipsis !important;
+    float: center !important;
+  }
