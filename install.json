@@ -64,7 +64,7 @@
             },
           "type": "string",
           "format": "color",
-          "default": "#811515"
+          "default": "#006ef0"
           },
           "emailButtonTextColor": {
           "order": 5,
@@ -74,7 +74,7 @@
             },
           "type": "string",
           "format": "color",
-          "default": "#a4747f"
+          "default": "#f9fff8"
           },
           "headingEmail": {
             "order": 6,
@@ -142,7 +142,7 @@
             },
           "type": "string",
           "format": "color",
-          "default": "#811515"
+          "default": "#006ef0"
           },
         "buttonTextColor": {
           "order": 13,
@@ -152,7 +152,7 @@
             },
           "type": "string",
           "format": "color",
-          "default": "#a4747f"
+          "default": "#f9fff8"
           },
           "headingPage": {
             "order": 14,
@@ -207,7 +207,7 @@
         "type": "string",
         "format": "image",
         "showIf": "imageToggle",
-        "default": "//eager-app-images.imgix.net/IaYSbxMqTBGYpIrJJzSb_2016.png"
+        "default": "http://i.imgur.com/63YqwJg.png"
       },
       "theme": {
         "order": 20,
