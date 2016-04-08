@@ -65,7 +65,7 @@
         html += messageEmail.html;
         if(counter == 0){
           html += '<form id="email-form" onSubmit="return false;">'
-               +  '<input type="email" name="email" placeholder="' + options.emailPlaceholderText + '">'
+               +  '<input type="email" class="input-email" name="email" placeholder="' + options.emailPlaceholderText + '">'
                +  '<input type="submit" class="email-button" value="' + options.emailButtonText + '" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">'
                +  '</form>'
         }
