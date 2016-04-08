@@ -24,6 +24,10 @@
       show();
   }
 
+  var email;
+
+  var counter = 0;
+
   var backdrop = document.createElement('eager-backdrop');
   document.body.appendChild(backdrop);
 
@@ -39,8 +43,6 @@
   var headingEmail = options.headingEmail;
 
   var messageEmail = options.messageEmail;
-
-  let email;
 
   function render() {
     dialog.setAttribute('eager-theme', options.theme);
@@ -61,13 +63,15 @@
       if (options.goal === "email"){
         html += '<h2>' + headingEmail + '</h2>';
         html += messageEmail.html;
-        html += '<form onSubmit="return false; emailCollect();"><input onSubmit="emailCollect();" class="email" id="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button id="emailButton" type="submit" onSubmit="emailCollect();" class="emailButton" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
+        if(counter == 0){
+          html += '<form onSubmit="return false;" id="emailForm" ><input id="emailInput" class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" id="emailTakeButton" class="emailButton" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
+        }
       }
 
       if (options.goal === "page") {
         html += '<h2>' + options.headingPage + '</h2>';
         html += options.messagePage.html;
-        html += '<form target="frame" action="' + options.buttonLink + '">' + '<input style="color: ' + options.buttonTextColor + '; background-color: ' + options.buttonColor + '" class="inputButton" type="submit" value="' + options.buttonText + '">' + '</form>';
+        html += '<form action="' + options.buttonLink + '">' + '<input id="emailButton" style="color: ' + options.buttonTextColor + '; background-color: ' + options.buttonColor + '" class="inputButton" type="submit" value="' + options.buttonText + '">' + '</form>';
       }
 
       html += '</eager-dialog-content-text>';
@@ -77,16 +81,29 @@
     content.appendChild(closeButton);
   }
 
-  function emailCollect(){
-    var email = document.getElementById('email').value;
-    var headingEmail = "Submitted!";
-    var messageEmail = "You have been signed up. Thank you!";
-    console.log(email);
-    render();
+  window.onload = function(){
+  if(options.goal === "email"){
+  var emailForm = document.getElementById("emailForm");
+  var emailInput = document.getElementById("emailInput");
+  var emailTakeButton = document.getElementById("emailTakeButton");
+  emailForm.addEventListener('submit', handler);
+    }
   }
-  
 
-  console.log(email);
+  function handler(event) {
+    event.preventDefault();
+    // Do other stuff
+    email = event.target.querySelector("input[name='email']").value;
+    emailForm.onSubmit = "return false;";
+    console.log(email);
+    headingEmail = options.headingEmailPost;
+    messageEmail = options.messageEmailPost;
+    counter += 1;
+    if(counter == 1){
+      render();
+    }
+  }
+
 
   var boundEls = [backdrop, dialog];
   for (var i=boundEls.length; i--;){
