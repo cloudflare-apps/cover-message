@@ -54,7 +54,7 @@
               "goal": "email"
             },
             "type": "string",
-            "default": "Enter your email address"
+            "default": "Enter your email"
           },          
           "emailButtonColor": {
           "order": 4,
