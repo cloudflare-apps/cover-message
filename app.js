@@ -18,8 +18,6 @@
   function setOptions(opts) {
     options = opts;
 
-    // updateColors();
-
     render();
 
     if (!shown)
@@ -44,8 +42,6 @@
 
   let email;
 
-  
-
   function render() {
     dialog.setAttribute('eager-theme', options.theme);
 
@@ -65,7 +61,7 @@
       if (options.goal === "email"){
         html += '<h2>' + headingEmail + '</h2>';
         html += messageEmail.html;
-        html += '<form><input class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button id="emailButton" type="submit" class="emailButton" onClick="updateText()" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
+        html += '<form onSubmit="return false; emailCollect();"><input onSubmit="emailCollect();" class="email" id="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button id="emailButton" type="submit" onSubmit="emailCollect();" class="emailButton" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
       }
 
       if (options.goal === "page") {
@@ -81,24 +77,16 @@
     content.appendChild(closeButton);
   }
 
-  // var thing = document.getElementById("emailButton")
+  function emailCollect(){
+    var email = document.getElementById('email').value;
+    var headingEmail = "Submitted!";
+    var messageEmail = "You have been signed up. Thank you!";
+    console.log(email);
+    render();
+  }
+  
 
-  // updateColors = function(){
-  //   thing.color = options.emailButtonColor;
-  // }
-
-
-  // function email(){
-  //   if(addEventListener(mouse or enter on email)){
-  //     options.message = "thank you for signing up!";
-  //     email = document.querySelector('input.email').value;
-  //   }
-  // }
-
-  // just a placeholder until i know how to store this code
-  // if (document.querySelector('input.email').value){
-  //   email = document.querySelector('input.email').value;
-  // }
+  console.log(email);
 
   var boundEls = [backdrop, dialog];
   for (var i=boundEls.length; i--;){
