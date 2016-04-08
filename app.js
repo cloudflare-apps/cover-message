@@ -64,14 +64,19 @@
         html += '<h2>' + headingEmail + '</h2>';
         html += messageEmail.html;
         if(counter == 0){
-          html += '<form id="emailForm" ><input id="emailInput" class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" id="emailTakeButton" class="emailButton" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
+          html += '<form id="email-form" onSubmit="return false;">'
+               +  '<input type="email" name="email" placeholder="' + options.emailPlaceholderText + '">'
+               +  '<input type="submit" class="email-button" value="' + options.emailButtonText + '" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">'
+               +  '</form>'
         }
       }
 
       if (options.goal === "page") {
         html += '<h2>' + options.headingPage + '</h2>';
         html += options.messagePage.html;
-        html += '<form action="' + options.buttonLink + '">' + '<input id="emailButton" style="color: ' + options.buttonTextColor + '; background-color: ' + options.buttonColor + '" class="inputButton" type="submit" value="' + options.buttonText + '">' + '</form>';
+        html += '<form action="' + options.buttonLink + '">'
+             +  '<input style="color: ' + options.buttonTextColor + '; background-color: ' + options.buttonColor + '" class="page-button" type="submit" value="' + options.buttonText + '">'
+             +  '</form>';
       }
 
       html += '</eager-dialog-content-text>';
@@ -83,24 +88,20 @@
 
   window.onload = function(){
   if(options.goal === "email"){
-	  var emailForm = document.getElementById("emailForm");
-	  var emailInput = document.getElementById("emailInput");
-	  var emailTakeButton = document.getElementById("emailTakeButton");
-	  emailForm.addEventListener('submit', handler);
+    var emailForm = document.getElementById("email-form");
+    function handler(event) {
+      event.preventDefault();
+      // Do other stuff
+      email = event.target.querySelector("input[name='email']").value;
+      emailForm.onSubmit = "return false;";
+      headingEmail = options.headingEmailPost;
+      messageEmail = options.messageEmailPost;
+      counter += 1;
+      if(counter == 1){
+        render();
+      }
     }
-  }
-
-  function handler(event) {
-    event.preventDefault();
-    // Do other stuff
-    email = event.target.querySelector("input[name='email']").value;
-    emailForm.onSubmit = "return false;";
-    console.log(email);
-    headingEmail = options.headingEmailPost;
-    messageEmail = options.messageEmailPost;
-    counter += 1;
-    if(counter == 1){
-      render();
+    emailForm.addEventListener('submit', handler);
     }
   }
 
