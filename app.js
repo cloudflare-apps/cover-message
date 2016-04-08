@@ -64,7 +64,7 @@
         html += '<h2>' + headingEmail + '</h2>';
         html += messageEmail.html;
         if(counter == 0){
-          html += '<form onSubmit="return false;" id="emailForm" ><input id="emailInput" class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" id="emailTakeButton" class="emailButton" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
+          html += '<form id="emailForm" ><input id="emailInput" class="email" type="email" name="email" placeholder="' + options.emailPlaceholderText + '"><button type="submit" id="emailTakeButton" class="emailButton" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">' + options.emailButtonText + '</button></form>'
         }
       }
 
@@ -83,10 +83,10 @@
 
   window.onload = function(){
   if(options.goal === "email"){
-  var emailForm = document.getElementById("emailForm");
-  var emailInput = document.getElementById("emailInput");
-  var emailTakeButton = document.getElementById("emailTakeButton");
-  emailForm.addEventListener('submit', handler);
+	  var emailForm = document.getElementById("emailForm");
+	  var emailInput = document.getElementById("emailInput");
+	  var emailTakeButton = document.getElementById("emailTakeButton");
+	  emailForm.addEventListener('submit', handler);
     }
   }
 
