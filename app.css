@@ -125,7 +125,7 @@ eager-dialog-close:after {
     background: rgba(255, 255, 255, .35);
     color: #000;
   }
-input.inputButton{
+.email-button{
       position: relative !important;
       display: inline-block !important;
       vertical-align: baseline !important;
@@ -146,10 +146,11 @@ input.inputButton{
       white-space: nowrap !important;
       overflow: hidden !important;
       box-shadow: none !important;
-      text-overflow: ellipsis !important
+      text-overflow: ellipsis !important;
+      float: right !important;
     }
 
-.emailButton{
+.page-button{
       position: relative !important;
       display: inline-block !important;
       vertical-align: baseline !important;
