@@ -105,6 +105,13 @@
     }
   }
 
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", render());
+  }
+  else {
+    render();
+  }
+
 
   var boundEls = [backdrop, dialog];
   for (var i=boundEls.length; i--;){
