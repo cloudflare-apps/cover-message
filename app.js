@@ -1,6 +1,6 @@
 (function(){
 
-  if (!window.addEventListener || !window.localStorage || !window.requestAnimationFrame)
+  if (!window.addEventListener || !window.localStorage)
     return;
 
   var options = INSTALL_OPTIONS;
@@ -161,7 +161,7 @@
     }
   }
 
-  var alreadyShown = options.showFrequency === 'once' && localStorage.eagerFireworksShown && localStorage.eagerFireworksShown === JSON.stringify(options);
+  var alreadyShown = options.showFrequency === 'once' && localStorage.eagerMessageShown && localStorage.eagerMessageShown === JSON.stringify(options);
 
   if ((!outsideDates && !alreadyShown) || IS_PREVIEW)
     show();
