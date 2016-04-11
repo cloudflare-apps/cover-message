@@ -161,7 +161,7 @@
     }
   }
 
-  var alreadyShown = options.showFrequency === 'once' && localStorage.eagerMessageShown && localStorage.eagerMessageShown === JSON.stringify(options);
+  var alreadyShown = options.showFrequency === 'once' && localStorage.eagerCoverMessageShown && localStorage.eagerCoverMessageShown === JSON.stringify(options);
 
   if ((!outsideDates && !alreadyShown) || IS_PREVIEW)
     show();
