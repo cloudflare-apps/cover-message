@@ -1,5 +1,96 @@
 (function(){
 
+  function email$utils$utils$$submit(options, email, callback) {
+      if (options.collectOrService === 'collect' && options.userEmail) {
+        email$utils$utils$$submitFormspree(options, email, callback);
+      } else if (options.collectOrService == 'service') {
+        if (options.account.service == 'mailchimp') {
+          email$utils$utils$$submitMailchimp(options, email, callback);
+        } else if (options.account.service == 'constant-contact') {
+          email$utils$utils$$submitConstantContact(options, email, callback);
+        }
+      }
+    }
+
+    function email$utils$utils$$submitFormspree(options, email, cb) {
+      var url, xhr, params;
+
+      url = '//formspree.io/' + options.userEmail;
+      xhr = new XMLHttpRequest();
+
+      params = 'email=' + encodeURIComponent(email);
+
+      xhr.open('POST', url);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.onload = function() {
+        var jsonResponse = {};
+        if (xhr.status < 400) {
+          try {
+            jsonResponse = JSON.parse(xhr.response);
+          } catch (err) {}
+
+          if (jsonResponse && jsonResponse.success === 'confirmation email sent') {
+            cb('Formspree has sent an email to ' + options.userEmail + ' for verification.');
+          } else {
+            cb(true);
+          }
+        } else {
+          cb(false);
+        }
+      }
+
+      xhr.send(params);
+    }function email$utils$utils$$submitMailchimp(options, email, cb) {
+      var cbCode, url, script;
+
+      cbCode = 'eagerFormCallback' + Math.floor(Math.random() * 100000000000000);
+
+      window[cbCode] = function(resp) {
+        cb(resp && resp.result === 'success');
+
+        delete window[cbCode];
+      }
+
+      url = options.list;
+      if (!url) {
+        return cb(false);
+      }
+
+      url = url.replace('http', 'https');
+      url = url.replace(/list-manage[0-9]+\.com/, 'list-manage.com');
+      url = url.replace('?', '/post-json?');
+      url = url + '&EMAIL=' + encodeURIComponent(email);
+      url = url + '&c=' + cbCode;
+
+      script = document.createElement('script');
+      script.src = url;
+      document.head.appendChild(script);
+    }function email$utils$utils$$submitConstantContact(options, email, cb) {
+      if (!options.form || !options.form.listId) {
+        return cb(false);
+      }
+
+      var xhr, body;
+
+      xhr = new XMLHttpRequest();
+
+      body = {
+        email: email,
+        ca: options.form.campaignActivity,
+        list: options.form.listId
+      };
+
+      xhr.open('POST', 'https://visitor2.constantcontact.com/api/signup');
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.onload = function() {
+        cb(xhr && xhr.status < 400);
+      };
+
+      xhr.send(JSON.stringify(body));
+    }
+
   if (!window.addEventListener || !window.localStorage)
     return;
 
@@ -63,10 +154,10 @@
       if (options.goal === "email"){
         html += '<h2>' + headingEmail + '</h2>';
         html += messageEmail.html;
-        if(counter == 0){
-          html += '<form id="email-form" onSubmit="return false;">'
-               +  '<input type="email" class="input-email" name="email" placeholder="' + options.emailPlaceholderText + '">'
-               +  '<input type="submit" class="email-button" value="' + options.emailButtonText + '" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">'
+        if(counter === 0){
+          html += '<form id="email-form" method="post" " name="email">'
+               +  '<input type="email" class="input-email" name="_replyto" placeholder="' + options.emailPlaceholderText + '">'
+               +  '<input type="submit" class="email-button" value="send" style="color:' + options.emailButtonTextColor + '; background-color: '+ options.emailButtonColor + '">'
                +  '</form>'
         }
       }
@@ -89,19 +180,31 @@
   window.onload = function(){
   if(options.goal === "email"){
     var emailForm = document.getElementById("email-form");
-    function handler(event) {
+    emailForm.addEventListener('submit', function(event) {
       event.preventDefault();
-      // Do other stuff
-      email = event.target.querySelector("input[name='email']").value;
-      emailForm.onSubmit = "return false;";
+
+      email = event.target.querySelector("input[name='_replyto']").value;
       headingEmail = options.headingEmailPost;
       messageEmail = options.messageEmailPost;
+
+      callback = function(ok) {
+
+          if (ok) {
+
+            if (typeof ok == 'string') {
+              body.innerHTML = ok;
+            }
+
+            setTimeout(hide, 3000);
+          } else {
+            messageEmail = 'Whoops, something didn’t work. Please try again.';
+          }
+        };
+
+      email$utils$utils$$submit(options, email, callback);
       counter += 1;
-      if(counter == 1){
-        render();
-      }
-    }
-    emailForm.addEventListener('submit', handler);
+      render();
+    })
     }
   }
 
