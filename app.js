@@ -1,16 +1,15 @@
 (function() {
   if (!window.addEventListener) return // Check for IE9+
 
+  let options = INSTALL_OPTIONS
+  let element
+
   function submitConstantContact(options, email, cb) {
-    if (!options.form || !options.form.listId) {
-      return cb(false)
-    }
+    if (!options.form || !options.form.listId) return cb(false)
 
-    let xhr, body
+    const xhr = new XMLHttpRequest()
 
-    xhr = new XMLHttpRequest()
-
-    body = {
+    const body = {
       email,
       ca: options.form.campaignActivity,
       list: options.form.listId
@@ -27,12 +26,9 @@
   }
 
   function submitFormspree(options, email, cb) {
-    let url, xhr, params
-
-    url = "//formspree.io/" + options.email
-    xhr = new XMLHttpRequest()
-
-    params = "email=" + encodeURIComponent(email)
+    const url = `//formspree.io/${options.email}`
+    const xhr = new XMLHttpRequest()
+    const params = `email=${encodeURIComponent(email)}`
 
     xhr.open("POST", url)
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
@@ -43,14 +39,17 @@
       if (xhr.status < 400) {
         try {
           jsonResponse = JSON.parse(xhr.response)
-        } catch (err) { }
+        }
+        catch (e) {}
 
         if (jsonResponse && jsonResponse.success === "confirmation email sent") {
           cb("Formspree has sent an email to " + options.email + " for verification.")
-        } else {
+        }
+        else {
           cb(true)
         }
-      } else {
+      }
+      else {
         cb(false)
       }
     }
@@ -59,9 +58,7 @@
   }
 
   function emailUtilsSubmitMailchimp(options, email, cb) {
-    let cbCode, url, script
-
-    cbCode = "eagerFormCallback" + Math.floor(Math.random() * 100000000000000)
+    const cbCode = "eagerFormCallback" + Math.floor(Math.random() * 100000000000000)
 
     window[cbCode] = function(resp) {
       cb(resp && resp.result === "success")
@@ -69,10 +66,9 @@
       delete window[cbCode]
     }
 
-    url = options.list
-    if (!url) {
-      return cb(false)
-    }
+    let url = options.list
+
+    if (!url) return cb(false)
 
     url = url.replace("http", "https")
     url = url.replace(/list-manage[0-9]+\.com/, "list-manage.com")
@@ -80,15 +76,17 @@
     url = url + "&EMAIL=" + encodeURIComponent(email)
     url = url + "&c=" + cbCode
 
-    script = document.createElement("script")
-    script.src = url
+    const script = Object.assign(document.createElement("script"), {
+      src: url
+    })
+
     document.head.appendChild(script)
   }
 
   function emailUtilsSubmit(options, email, callback) {
     if (options.destination === "email" && options.email) {
       submitFormspree(options, email, callback)
-    } 
+    }
     else if (options.destination === "service") {
       if (options.account.service === "mailchimp") {
         emailUtilsSubmitMailchimp(options, email, callback)
@@ -99,10 +97,6 @@
     }
   }
 
-  let options = INSTALL_OPTIONS
-  let element
-  let email
-
   function hide(event) {
     if (event.target !== this) return
 
@@ -112,7 +106,7 @@
   function handleEmailSubmit(event) {
     event.preventDefault()
 
-    email = event.target.querySelector("input[name='_replyto']").value
+    const email = event.target.querySelector("input[name='_replyto']").value
     console.log(email)
 
     function callback(){
@@ -125,7 +119,7 @@
 
     emailUtilsSubmit(options, email, callback)
   }
-  
+
   function handlePageSubmit(event) {
     event.preventDefault()
 
@@ -136,8 +130,7 @@
     try {
       localStorage.eagerCoverMessageShown = JSON.stringify(options)
     }
-    catch (e) {
-    }
+    catch (e) {}
 
     element = Eager.createElement({
       selector: "body",
@@ -145,7 +138,7 @@
     }, element)
 
     element.classList.add("eager-cover-message")
-    element.setAttribute("data-visibility", "visible") // TODO Check if seen before.
+    element.setAttribute("data-visibility", "visible")
 
     // Elements
 
