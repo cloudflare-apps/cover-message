@@ -49,6 +49,7 @@
       },
 
       "email": {
+        "order": 3,
         "showIf": {
           "goal": {
             "op": "==",
@@ -59,34 +60,19 @@
         "properties": {
           "buttonText": {
             "default": "Send",
-            "order": 3,
+            "order": 1,
             "title": "Button text",
             "type": "string"
-          },
-
-          "buttonBackgroundColor": {
-            "order": 4,
-            "title": "Button color",
-            "type": "string",
-            "format": "color",
-            "default": "#006ef0"
-          },
-
-          "buttonTextColor": {
-            "order": 5,
-            "title": "Button text color",
-            "type": "string",
-            "format": "color",
-            "default": "#f9fff8"
           }
         }
       },
 
       "page": {
+        "order": 3,
         "showIf": {
           "goal": {
             "op": "==",
-            "value": "email"
+            "value": "page"
           }
         },
         "type": "object",
@@ -104,24 +90,32 @@
             "order": 2,
             "title": "Button text",
             "type": "string"
-          },
-
-          "buttonBackgroundColor": {
-            "order": 4,
-            "title": "Button color",
-            "type": "string",
-            "format": "color",
-            "default": "#006ef0"
-          },
-
-          "buttonTextColor": {
-            "order": 5,
-            "title": "Button text color",
-            "type": "string",
-            "format": "color",
-            "default": "#f9fff8"
           }
         }
+      },
+
+      "showAdvanced": {
+        "order": 4,
+        "type": "boolean",
+        "title": "Show advanced options"
+      },
+
+      "buttonBackgroundColor": {
+        "showIf": "showAdvanced",
+        "order": 5,
+        "title": "Button color",
+        "type": "string",
+        "format": "color",
+        "default": "#006ef0"
+      },
+
+      "buttonTextColor": {
+        "showIf": "showAdvanced",
+        "order": 6,
+        "title": "Button text color",
+        "type": "string",
+        "format": "color",
+        "default": "#f9fff8"
       }
     }
   }
