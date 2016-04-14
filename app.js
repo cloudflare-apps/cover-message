@@ -1,6 +1,104 @@
 (function() {
   if (!window.addEventListener) return // Check for IE9+
 
+  function submitConstantContact(options, email, cb) {
+    if (!options.form || !options.form.listId) {
+      return cb(false)
+    }
+
+    let xhr, body
+
+    xhr = new XMLHttpRequest()
+
+    body = {
+      email,
+      ca: options.form.campaignActivity,
+      list: options.form.listId
+    }
+
+    xhr.open("POST", "https://visitor2.constantcontact.com/api/signup")
+    xhr.setRequestHeader("Content-type", "application/json")
+    xhr.setRequestHeader("Accept", "application/json")
+    xhr.onload = function () {
+      cb(xhr && xhr.status < 400)
+    }
+
+    xhr.send(JSON.stringify(body))
+  }
+
+  function submitFormspree(options, email, cb) {
+    let url, xhr, params
+
+    url = "//formspree.io/" + options.email
+    xhr = new XMLHttpRequest()
+
+    params = "email=" + encodeURIComponent(email)
+
+    xhr.open("POST", url)
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+    xhr.setRequestHeader("Accept", "application/json")
+    xhr.onload = function() {
+      let jsonResponse = {}
+
+      if (xhr.status < 400) {
+        try {
+          jsonResponse = JSON.parse(xhr.response)
+        } catch (err) { }
+
+        if (jsonResponse && jsonResponse.success === "confirmation email sent") {
+          cb("Formspree has sent an email to " + options.email + " for verification.")
+        } else {
+          cb(true)
+        }
+      } else {
+        cb(false)
+      }
+    }
+
+    xhr.send(params)
+  }
+
+  function emailUtilsSubmitMailchimp(options, email, cb) {
+    let cbCode, url, script
+
+    cbCode = "eagerFormCallback" + Math.floor(Math.random() * 100000000000000)
+
+    window[cbCode] = function(resp) {
+      cb(resp && resp.result === "success")
+
+      delete window[cbCode]
+    }
+
+    url = options.list
+    if (!url) {
+      return cb(false)
+    }
+
+    url = url.replace("http", "https")
+    url = url.replace(/list-manage[0-9]+\.com/, "list-manage.com")
+    url = url.replace("?", "/post-json?")
+    url = url + "&EMAIL=" + encodeURIComponent(email)
+    url = url + "&c=" + cbCode
+
+    script = document.createElement("script")
+    script.src = url
+    document.head.appendChild(script)
+  }
+
+  function emailUtilsSubmit(options, email, callback) {
+    if (options.destination === "email" && options.email) {
+      submitFormspree(options, email, callback)
+    } 
+    else if (options.destination === "service") {
+      if (options.account.service === "mailchimp") {
+        emailUtilsSubmitMailchimp(options, email, callback)
+      }
+      else if (options.account.service === "constant-contact") {
+        submitConstantContact(options, email, callback)
+      }
+    }
+  }
+
   let options = INSTALL_OPTIONS
   let element
   let email
@@ -17,19 +115,22 @@
     email = event.target.querySelector("input[name='_replyto']").value
     console.log(email)
 
-    // dialogContentText.innerHTML = options.postedMessage
-    // run function that goes through all other functions to see what one it needs
-    // updateElement() but we need an update element that skips rendering the email form
-  }
+    function callback(){
+      options.message = options.email.postedMessage
 
-  // shouldn't need if we properly log that the app has displayed before
+      options.goal = "message"
+
+      updateElement()
+    }
+
+    emailUtilsSubmit(options, email, callback)
+  }
   
   function handlePageSubmit(event) {
     event.preventDefault()
 
     window.location = options.page.buttonLink
   }
-
 
   function updateElement() {
     try {
@@ -52,7 +153,6 @@
     const dialog = document.createElement("eager-dialog")
     const dialogContent = document.createElement("eager-dialog-content")
     const dialogContentText = document.createElement("eager-dialog-content-text")
-    const closeButton = document.createElement("eager-dialog-close-button")
 
     const submitButton = Object.assign(document.createElement("input"), {
       type: "submit",
@@ -63,7 +163,6 @@
     // Event listeners
 
     dialog.addEventListener("click", hide)
-    closeButton.addEventListener("click", hide)
 
 
     // Child appending
@@ -107,7 +206,6 @@
     }
 
     dialogContent.appendChild(dialogContentText)
-    dialogContent.appendChild(closeButton)
 
     dialog.appendChild(dialogContent)
 
