@@ -57,7 +57,7 @@
     xhr.send(params)
   }
 
-  function emailUtilsSubmitMailchimp(options, email, cb) {
+  function submitMailchimp(options, email, cb) {
     const cbCode = "eagerFormCallback" + Math.floor(Math.random() * 100000000000000)
 
     window[cbCode] = function(resp) {
@@ -84,12 +84,12 @@
   }
 
   function emailUtilsSubmit(options, email, callback) {
-    if (options.destination === "email" && options.email) {
+    if (options.collectOrService === "collect" && options.userEmail) {
       submitFormspree(options, email, callback)
     }
-    else if (options.destination === "service") {
+    else if (options.collectOrService === "service") {
       if (options.account.service === "mailchimp") {
-        emailUtilsSubmitMailchimp(options, email, callback)
+        submitMailchimp(options, email, callback)
       }
       else if (options.account.service === "constant-contact") {
         submitConstantContact(options, email, callback)
@@ -103,27 +103,83 @@
     element.setAttribute("data-visibility", "hidden")
   }
 
-  function handleEmailSubmit(event) {
-    event.preventDefault()
+  const submitHandlers = {
+    signup(event) {
+      event.preventDefault()
 
-    const email = event.target.querySelector("input[name='_replyto']").value
-    console.log(email)
+      const email = event.target.querySelector("input[name='_replyto']").value
 
-    function callback(){
-      options.message = options.email.postedMessage
+      console.log(email)
 
-      options.goal = "message"
+      function callback(){
+        options.message = options.emailPostedMessage
 
-      updateElement()
+        options.goal = "announcement"
+
+        updateElement()
+      }
+
+      emailUtilsSubmit(options, email, callback)
+    },
+    cta(event) {
+      event.preventDefault()
+
+      window.location = options.pageButtonLink
+    },
+    announcement(event) {
+      event.preventDefault()
+
+      element.setAttribute("data-visibility", "hidden")
     }
-
-    emailUtilsSubmit(options, email, callback)
   }
 
-  function handlePageSubmit(event) {
-    event.preventDefault()
+  const renderers = {
+    wrapper(children) {
+      return `
+        <eager-backdrop></eager-backdrop>
 
-    window.location = options.page.buttonLink
+        <eager-dialog>
+          <eager-dialog-content>
+            <eager-dialog-content-text>
+              ${children}
+              <eager-dialog-close-button></eager-dialog-close-button>
+            </eager-dialog-content-text>
+          </eager-dialog-content>
+        </eager-dialog>
+      `
+    },
+    signup() {
+      return `
+        <eager-dialog-content-title>${options.signupTitle || "Sign up"}</eager-dialog-content-title>
+        ${options.signupText}
+
+        <form class="clearfix signup">
+          <input class="input-email" name="_replyto" placeholder="${options.signupInputPlaceholder}" required type="email" />
+          <input type="submit" class="submit-button" value="${options.signupButtonText || "Sign up!"}">
+        </form>
+      `
+    },
+    announcement() {
+      return `
+        <eager-dialog-content-title>${options.announcementTitle || "Announcement"}</eager-dialog-content-title>
+        ${options.announcementText}
+
+        <form class="clearfix announcement">
+          <input type="submit" class="submit-button" value="${options.announcementButtonText || "Got it!"}">
+        </form>
+      `
+    },
+    cta() {
+      return `
+        <eager-dialog-content-title>${options.ctaTitle || "New products!"}</eager-dialog-content-title>
+
+        ${options.ctaText}
+
+        <form class="clearfix cta">
+          <input type="submit" class="submit-button" value="${options.ctaButtonText || "Take me there!"}">
+        </form>
+      `
+    }
   }
 
   function updateElement() {
@@ -140,70 +196,16 @@
     element.classList.add("eager-cover-message")
     element.setAttribute("data-visibility", "visible")
 
-    // Elements
+    const children = renderers[options.goal]()
 
-    const backdrop = document.createElement("eager-backdrop")
-    const dialog = document.createElement("eager-dialog")
-    const dialogContent = document.createElement("eager-dialog-content")
-    const dialogContentText = document.createElement("eager-dialog-content-text")
-
-    const submitButton = Object.assign(document.createElement("input"), {
-      type: "submit",
-      className: "submit-button",
-      style: `color: ${options.buttonTextColor}; background-color: ${options.buttonBackgroundColor}`
-    })
-
-    // Event listeners
-
-    dialog.addEventListener("click", hide)
+    element.innerHTML = renderers.wrapper(children)
 
 
-    // Child appending
+    element.querySelector("form").addEventListener("submit", submitHandlers[options.goal])
 
-    dialogContentText.innerHTML = options.message.html
-
-    if (options.goal === "email") {
-      const emailInput = Object.assign(document.createElement("input"), {
-        type: "email",
-        className: "input-email",
-        name: "_replyto",
-        placeholder: "Enter your Email"
-      })
-
-      const emailForm = Object.assign(document.createElement("form"), {
-        id: "email-form",
-        method: "post",
-        name: "email"
-      })
-
-      emailForm.appendChild(emailInput)
-      emailForm.appendChild(submitButton)
-
-      submitButton.value = options.email.buttonText
-
-      emailForm.addEventListener("submit", handleEmailSubmit)
-
-      dialogContentText.appendChild(emailForm)
-    }
-    else if (options.goal === "page") {
-      submitButton.value = options.page.buttonText
-
-      const pageForm = Object.assign(document.createElement("form"), {
-        className: "page-form"
-      })
-
-      pageForm.appendChild(submitButton)
-
-      pageForm.addEventListener("submit", handlePageSubmit)
-      dialogContentText.appendChild(pageForm)
-    }
-
-    dialogContent.appendChild(dialogContentText)
-
-    dialog.appendChild(dialogContent)
-
-    element.appendChild(backdrop)
-    element.appendChild(dialog)
+    element.querySelector("eager-dialog").addEventListener("click", hide)
+    element.querySelector("eager-dialog-close-button").addEventListener("click", hide)
+    element.querySelector(".submit-button").style.backgroundColor = options.color
   }
 
   const alreadyShown = localStorage.eagerCoverMessageShown === JSON.stringify(options)

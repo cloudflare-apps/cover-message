@@ -62,23 +62,24 @@ eager-dialog-content * {
 }
 
 eager-dialog-content-text {
-  -webkit-font-smoothing: antialiased;
   background: #fff;
+  border: 2px solid #efefef;
+  border-radius: 2px;
   color: #555;
   display: block;
   padding: 2em;
+  -webkit-font-smoothing: antialiased;
 }
-
 
 @media (max-width: 568px) {
   eager-dialog-content-text {
-      padding: 1.5em;
+    padding: 1.5em;
   }
 }
 
 @media (max-width: 480px) {
   eager-dialog-content-text {
-      padding: 1em;
+    padding: 1em;
   }
 }
 
@@ -93,11 +94,18 @@ eager-dialog-content-text a {
 }
 
 eager-dialog-content-text > *:first-child {
+  margin-right: 3em;
   margin-top: 0
 }
 
 eager-dialog-content-text > *:last-child {
   margin-bottom: 0
+}
+
+.eager-cover-message eager-dialog-content-title {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .eager-cover-message eager-dialog-close-button:after {
@@ -125,28 +133,28 @@ eager-dialog-content-text > *:last-child {
 }
 
 .eager-cover-message .submit-button {
-  position: relative;
-  display: inline-block;
-  vertical-align: baseline;
-  max-width: 100%;
-  cursor: pointer;
-  width: auto;
-  padding: .65em 1.6em .6em .9em;
-  height: auto;
-  border: 0;
   border-radius: .1875em;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  text-indent: .08em;
-  font-size: .9em;
-  opacity: .85;
-  max-width: 16em;
-  white-space: nowrap;
-  overflow: hidden;
+  border: 0;
   box-shadow: none;
-  text-overflow: ellipsis;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
   float: right;
+  font-size: .9em;
+  font-weight: bold;
+  height: auto;
+  letter-spacing: .08em;
+  max-width: 16em;
+  opacity: .85;
+  overflow: hidden;
+  padding: .65em 1.6em .6em 1.6em;
+  position: relative;
+  text-indent: .08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  vertical-align: baseline;
+  white-space: nowrap;
+  width: auto;
 }
 
 .eager-cover-message .input-email {
@@ -168,13 +176,23 @@ eager-dialog-content-text > *:last-child {
   overflow: hidden;
   box-shadow: none;
   text-overflow: ellipsis;
-  float: center;
+  float: left;
 }
 
-.eager-cover-message .page-form {
+.eager-cover-message .clearfix:before,
+.eager-cover-message .clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.eager-cover-message .clearfix:after {
+  clear: both;
+}
+
+.eager-cover-message form.announcement {
   text-align: right;
 }
 
-.eager-cover-message .page-form .submit-button {
+.eager-cover-message form.announcement .submit-button {
   float: none;
 }

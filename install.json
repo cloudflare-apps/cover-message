@@ -22,101 +22,246 @@
   "options": {
     "properties": {
       "goal": {
-        "default": "email",
         "order": 1,
-        "title": "What do you want to do?",
+        "title": "What’s the goal you’re trying to achieve?",
         "type": "string",
         "format": "radios",
         "enum": [
-          "email",
-          "page",
-          "message"
+          "cta",
+          "signup",
+          "announcement"
         ],
         "enumNames": {
-          "email": "Gather emails to sign visitors up for your newsletter",
-          "page": "Redirect them to a special page",
-          "message": "Just show a message"
-        }
+          "cta": "Redirect them to a special page.",
+          "signup": "Gather emails to sign visitors up for your newsletter.",
+          "announcement": "Just show a message."
+        },
+        "default": "cta"
       },
 
-      "message": {
-        "default": "## Announcement\nStay up to date with all of our current news!",
-        "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
+      "ctaTitle": {
         "order": 2,
-        "title": "Message",
-        "format": "markdown",
-        "type": "string"
+        "showIf": {
+          "goal": "cta"
+        },
+        "title": "Message title",
+        "type": "string",
+        "default": "New products!",
+        "placeholder": "New products!"
       },
 
-      "email": {
+      "ctaText": {
         "order": 3,
         "showIf": {
-          "goal": {
-            "op": "==",
-            "value": "email"
-          }
+          "goal": "cta"
         },
-        "type": "object",
-        "properties": {
-          "buttonText": {
-            "default": "Send",
-            "order": 1,
-            "title": "Button text",
-            "type": "string"
-          }
-        }
+        "title": "Message text",
+        "format": "textarea",
+        "type": "string",
+        "default": "We just launched an amazing new product!"
       },
-
-      "page": {
-        "order": 3,
-        "showIf": {
-          "goal": {
-            "op": "==",
-            "value": "page"
-          }
-        },
-        "type": "object",
-        "properties": {
-          "buttonText": {
-            "default": "Let's go!",
-            "order": 1,
-            "title": "Button text",
-            "type": "string"
-          },
-
-          "buttonLink": {
-            "placeholder": "http://...",
-            "default": "https://eager.io",
-            "order": 2,
-            "title": "Button text",
-            "type": "string"
-          }
-        }
-      },
-
-      "showAdvanced": {
+      "ctaButtonText": {
         "order": 4,
-        "type": "boolean",
-        "title": "Show advanced options"
+        "showIf": {
+          "goal": "cta"
+        },
+        "title": "Button text",
+        "type": "string",
+        "default": "Take me there!",
+        "placeholder": "Take me there!"
       },
-
-      "buttonBackgroundColor": {
-        "showIf": "showAdvanced",
+      "ctaLinkAddress": {
         "order": 5,
-        "title": "Button color",
+        "showIf": {
+          "goal": "cta"
+        },
+        "title": "URL to drive traffic to",
         "type": "string",
-        "format": "color",
-        "default": "#006ef0"
+        "default": "http://eager.io",
+        "placeholder": "http://"
       },
 
-      "buttonTextColor": {
-        "showIf": "showAdvanced",
+      "signupDestination": {
+        "order": 5,
+        "default": "email",
+        "title": "What should we do with the emails we collect?",
+        "type": "string",
+        "format": "radios",
+        "showIf": {
+          "goal": "signup"
+        },
+        "enum": [
+          "email",
+          "service"
+        ],
+        "enumNames": {
+          "email": "Send me an email with the collected email address.<span class=\"help-text\"><small>Powered by <a href=\"http://formspree.io\" target=\"_blank\" class=\"with-inherited-color\"><strong>Formspree</strong></a></small></span>",
+          "service": "Add them as contacts to the mailing list service of my choice.<span class=\"help-text\"><small>Currently, <a href=\"http://www.constantcontact.com\" target=\"_blank\" class=\"with-inherited-color\"><strong>Constant Contact</strong></a> and <a href=\"http://mailchimp.com\" target=\"_blank\" class=\"with-inherited-color\"><strong>Mailchimp</strong></a> are supported.</small></span>"
+        }
+      },
+      "signupEmail": {
         "order": 6,
-        "title": "Button text color",
+        "showIf": {
+          "goal": "signup",
+          "signupDestination": "email"
+        },
+        "title": "What email address should signups be sent to?",
+        "description": "<strong>Required</strong>",
+        "placeholder": "you@email.com",
+        "type": "string",
+        "default": ""
+      },
+      "account": {
+        "order": 7,
+        "title": "Mailing list service",
+        "description": "Select the mailing list service which you would like to send subscriptions to.",
+        "type": "object",
+        "format": "account",
+        "services": ["mailchimp", "constant-contact"],
+        "showIf": {
+          "goal": "signup",
+          "signupDestination": "service"
+        }
+      },
+      "list": {
+        "order": 8,
+        "title": "List",
+        "description": "Select the list in your account which email submissions should be added to",
+        "type": "string",
+        "default": "",
+        "enum": [""],
+        "enumNames": {
+          "": "Loading lists..."
+        },
+        "showIf": {
+          "goal": "signup",
+          "signupDestination": "service",
+          "account.service": {
+            "op": "!=",
+            "value": null
+          }
+        }
+      },
+
+      "signupTitle": {
+        "order": 8,
+        "showIf": {
+          "goal": "signup"
+        },
+        "title": "Message title",
+        "type": "string",
+        "default": "Sign up",
+        "placeholder": "Sign up"
+      },
+
+      "signupText": {
+        "order": 9,
+        "showIf": {
+          "goal": "signup"
+        },
+        "title": "Message text",
+        "format": "textarea",
+        "type": "string",
+        "default": "Join our mailing list to be the first to know what we’re up to!"
+      },
+      "signupInputPlaceholder": {
+        "order": 10,
+        "showIf": {
+          "goal": "signup"
+        },
+        "title": "Input placeholder text",
+        "type": "string",
+        "default": "Email address"
+      },
+      "signupButtonText": {
+        "order": 11,
+        "showIf": {
+          "goal": "signup"
+        },
+        "title": "Button text",
+        "type": "string",
+        "default": "Sign up!",
+        "placeholder": "Sign up!"
+      },
+      "signupSuccessText": {
+        "order": 12,
+        "showIf": {
+          "goal": "signup"
+        },
+        "title": "Thank you text",
+        "description": "This text will display after visitors enter their email.",
+        "type": "string",
+        "default": "Thanks for signing up! :)"
+      },
+
+      "announcementTitle": {
+        "order": 11,
+        "showIf": {
+          "goal": "announcement"
+        },
+        "title": "Message title",
+        "type": "string",
+        "default": "Announcement",
+        "placeholder": "Announcement"
+      },
+
+      "announcementText": {
+        "order": 12,
+        "showIf": {
+          "goal": "announcement"
+        },
+        "title": "Message text",
+        "format": "textarea",
+        "type": "string",
+        "default": "Sale! Everything is 75% off this entire week."
+      },
+
+      "announcementButtonText": {
+        "order": 13,
+        "showIf": {
+          "goal": "announcement"
+        },
+        "title": "Button text",
+        "type": "string",
+        "default": "Got it!",
+        "placeholder": "Got it!"
+      },
+
+      "color": {
+        "order": 14,
+        "title": "Accent color",
         "type": "string",
         "format": "color",
-        "default": "#f9fff8"
+        "default": "#0099ff"
       }
     }
-  }
+  },
+  "hooks": [
+    {
+      "endpoint": "http://provisioner.eager.io/{{ install.options.account.service }}/hook",
+      "events": ["option-change:account", "preview"],
+      "block": true,
+      "if": "install.options.signupDestination == 'service' && install.options.account && install.options.account.service",
+      "authenticate": ["account"],
+      "failure": {
+        "action": "notify",
+        "message": "There was an error communicating with the mail service."
+      }
+    },
+    {
+      "endpoint": "http://provisioner.eager.io/constant-contact/hook",
+      "events": ["option-change:list"],
+      "block": true,
+      "if": "install.options.signupDestination == 'service' && install.options.account && install.options.account.service == 'constant-contact'",
+      "authenticate": ["account"],
+      "failure": {
+        "action": "notify",
+        "message": "There was an error communicating with Constant Contact."
+      }
+    },
+    {
+      "events": ["account-logout"],
+      "action": "reset-schema"
+    }
+  ]
 }
