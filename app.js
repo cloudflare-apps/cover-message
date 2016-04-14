@@ -3,6 +3,7 @@
 
   let options = INSTALL_OPTIONS
   let element
+  let email
 
   function hide(event) {
     if (event.target !== this) return
@@ -13,17 +14,30 @@
   function handleEmailSubmit(event) {
     event.preventDefault()
 
-    console.log("email form submitted")
+    email = event.target.querySelector("input[name='_replyto']").value
+    console.log(email)
+
+    // dialogContentText.innerHTML = options.postedMessage
+    // run function that goes through all other functions to see what one it needs
+    // updateElement() but we need an update element that skips rendering the email form
   }
 
+  // shouldn't need if we properly log that the app has displayed before
+  
   function handlePageSubmit(event) {
     event.preventDefault()
 
-    console.log("page form submitted")
+    window.location = options.page.buttonLink
   }
 
 
   function updateElement() {
+    try {
+      localStorage.eagerCoverMessageShown = JSON.stringify(options)
+    }
+    catch (e) {
+    }
+
     element = Eager.createElement({
       selector: "body",
       method: "append"
@@ -50,6 +64,7 @@
 
     dialog.addEventListener("click", hide)
     closeButton.addEventListener("click", hide)
+
 
     // Child appending
 
@@ -100,11 +115,19 @@
     element.appendChild(dialog)
   }
 
+  const alreadyShown = localStorage.eagerCoverMessageShown === JSON.stringify(options)
+
+  function bootstrap() {
+    if (alreadyShown && INSTALL_ID !== "preview") return
+
+    updateElement()
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", updateElement)
+    document.addEventListener("DOMContentLoaded", bootstrap)
   }
   else {
-    updateElement()
+    bootstrap()
   }
 
   INSTALL_SCOPE = {
