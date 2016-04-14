@@ -60,6 +60,7 @@
         "type": "string",
         "default": "We just launched an amazing new product!"
       },
+
       "ctaButtonText": {
         "order": 4,
         "showIf": {
@@ -70,6 +71,7 @@
         "default": "Take me there!",
         "placeholder": "Take me there!"
       },
+
       "ctaLinkAddress": {
         "order": 5,
         "showIf": {
@@ -82,7 +84,7 @@
       },
 
       "signupDestination": {
-        "order": 5,
+        "order": 6,
         "default": "email",
         "title": "What should we do with the emails we collect?",
         "type": "string",
@@ -99,8 +101,9 @@
           "service": "Add them as contacts to the mailing list service of my choice.<span class=\"help-text\"><small>Currently, <a href=\"http://www.constantcontact.com\" target=\"_blank\" class=\"with-inherited-color\"><strong>Constant Contact</strong></a> and <a href=\"http://mailchimp.com\" target=\"_blank\" class=\"with-inherited-color\"><strong>Mailchimp</strong></a> are supported.</small></span>"
         }
       },
-      "signupEmail": {
-        "order": 6,
+
+      "userEmail": {
+        "order": 7,
         "showIf": {
           "goal": "signup",
           "signupDestination": "email"
@@ -111,8 +114,9 @@
         "type": "string",
         "default": ""
       },
+
       "account": {
-        "order": 7,
+        "order": 8,
         "title": "Mailing list service",
         "description": "Select the mailing list service which you would like to send subscriptions to.",
         "type": "object",
@@ -123,8 +127,9 @@
           "signupDestination": "service"
         }
       },
+
       "list": {
-        "order": 8,
+        "order": 9,
         "title": "List",
         "description": "Select the list in your account which email submissions should be added to",
         "type": "string",
@@ -144,7 +149,7 @@
       },
 
       "signupTitle": {
-        "order": 8,
+        "order": 9,
         "showIf": {
           "goal": "signup"
         },
@@ -155,7 +160,7 @@
       },
 
       "signupText": {
-        "order": 9,
+        "order": 10,
         "showIf": {
           "goal": "signup"
         },
@@ -165,7 +170,7 @@
         "default": "Join our mailing list to be the first to know what we’re up to!"
       },
       "signupInputPlaceholder": {
-        "order": 10,
+        "order": 11,
         "showIf": {
           "goal": "signup"
         },
@@ -174,7 +179,7 @@
         "default": "Email address"
       },
       "signupButtonText": {
-        "order": 11,
+        "order": 12,
         "showIf": {
           "goal": "signup"
         },
@@ -184,7 +189,7 @@
         "placeholder": "Sign up!"
       },
       "signupSuccessText": {
-        "order": 12,
+        "order": 13,
         "showIf": {
           "goal": "signup"
         },
@@ -195,7 +200,7 @@
       },
 
       "announcementTitle": {
-        "order": 11,
+        "order": 14,
         "showIf": {
           "goal": "announcement"
         },
@@ -206,7 +211,7 @@
       },
 
       "announcementText": {
-        "order": 12,
+        "order": 15,
         "showIf": {
           "goal": "announcement"
         },
@@ -217,7 +222,7 @@
       },
 
       "announcementButtonText": {
-        "order": 13,
+        "order": 16,
         "showIf": {
           "goal": "announcement"
         },
@@ -228,7 +233,7 @@
       },
 
       "color": {
-        "order": 14,
+        "order": 17,
         "title": "Accent color",
         "type": "string",
         "format": "color",

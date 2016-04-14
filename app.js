@@ -84,10 +84,10 @@
   }
 
   function emailUtilsSubmit(options, email, callback) {
-    if (options.collectOrService === "collect" && options.userEmail) {
+    if (options.signupDestination === "email" && options.userEmail) {
       submitFormspree(options, email, callback)
     }
-    else if (options.collectOrService === "service") {
+    else if (options.signupDestination === "service") {
       if (options.account.service === "mailchimp") {
         submitMailchimp(options, email, callback)
       }
@@ -109,10 +109,9 @@
 
       const email = event.target.querySelector("input[name='_replyto']").value
 
-      console.log(email)
-
       function callback(){
-        options.message = options.emailPostedMessage
+        options.announcementTitle = "&nbsp;"
+        options.announcementText = options.signupSuccessText
 
         options.goal = "announcement"
 
