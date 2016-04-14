@@ -1,0 +1,31 @@
+{
+  "name": "eager-cover-message",
+  "version": "0.0.0",
+  "description": "A cover message built with [Eager](https://eager.io).",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel --watch --out-dir build app.js",
+    "build": "NODE_ENV=production babel --out-dir build app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConzorKingKong/EagerCoverMessage.git"
+  },
+  "author": "Teffen Ellis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ConzorKingKong/EagerCoverMessage/issues"
+  },
+  "homepage": "https://github.com/ConzorKingKong/EagerCoverMessage#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "babel-cli": "6.4.5",
+    "babel-eslint": "5.0.0",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-stage-0": "6.3.13",
+    "eslint": "2.2.0",
+    "eslint-loader": "1.3.0",
+    "eslint-plugin-babel": "3.1.0"
+  }
+}

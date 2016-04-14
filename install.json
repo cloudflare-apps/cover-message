@@ -22,303 +22,106 @@
   "options": {
     "properties": {
       "goal": {
+        "default": "email",
         "order": 1,
         "title": "What do you want to do?",
         "type": "string",
         "format": "radios",
         "enum": [
-        "email",
-        "page",
-        "message"
+          "email",
+          "page",
+          "message"
         ],
         "enumNames": {
-        "email": "Gather emails to sign visitors up for your newsletter",
-        "page": "Redirect them to a special page",
-        "message": "Just show a message"
-        },
-        "default": "email"
-        },
-        "collectOrService":{
-          "order": 2,
-          "title": "Do you want to collect emails or use an automated mailing service?",
-          "showIf": {
-            "goal": "email"
-          },
-          "type": "string",
-          "format": "radios",
-          "enum": [
-          "collect",
-          "service"
-          ],
-          "enumNames": {
-            "collect": "I want to collect the emails and add them to a newsletter manually",
-            "service": "I want to use a mailing service"
-          }
-          },
-        "userEmail": {
-          "order": 3,
-          "title": "Your email",
-          "showIf": {
-            "collectOrService": "collect"
-          },
-          "type": "string",
-          "default": "your@email.com",
-          "description": "Input the email that you want to recieve your visitor's information"
-          },
-          "account": {
-          "order": 4,
-          "title": "Mailing list service",
-          "description": "Select the mailing list service which you would like to send subscriptions to.",
-          "type": "object",
-          "format": "account",
-          "services": ["mailchimp", "constant-contact"],
-          "showIf": {
-            "collectOrService": "service"
-          }
-        },
-        "list": {
-          "order": 5,
-          "title": "List",
-          "description": "Select the list in your account which email submissions should be added to",
-          "type": "string",
-          "default": "",
-          "enum": [""],
-          "enumNames": {
-            "": "Loading lists..."
-          },
-          "showIf": {
-            "destination": "service",
-            "account.service": {
-              "op": "!=",
-              "value": null
-            }
-          }
-        },
-        "emailButtonText": {
-          "order": 6,
-          "title": "Email Button Text",
-          "showIf": {
-            "goal": "email"
-          },
-          "type": "string",
-          "default": "Sign up now!"
-          },
-          "emailPlaceholderText": {
-            "order": 7,
-            "title": "Email Placeholder Text",
-            "showIf": {
-              "goal": "email"
-            },
-            "type": "string",
-            "default": "Enter your email"
-          },          
-          "emailButtonColor": {
-          "order": 8,
-          "title": "Email Button Color",
-          "showIf": {
-            "goal": "email"
-            },
-          "type": "string",
-          "format": "color",
-          "default": "#006ef0"
-          },
-          "emailButtonTextColor": {
-          "order": 9,
-          "title": "Email Button Text Color",
-          "showIf": {
-            "goal": "email"
-            },
-          "type": "string",
-          "format": "color",
-          "default": "#f9fff8"
-          },
-          "headingEmail": {
-            "order": 10,
-            "title": "Heading",
-            "showIf": {
-              "goal": "email"
-            },
-            "type": "string",
-            "default": "Get our newsletter!"
-          },
-          "messageEmail": {
-            "order": 11,
-            "title": "Message",
-            "showIf": {
-              "goal": "email"
-            },
-            "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
-            "type": "string",
-            "format": "markdown",
-            "default": "Stay up to date with all of our current news!"
-          },
-          "headingEmailPost": {
-            "order": 12,
-            "title": "Post Signup Heading",
-            "showIf": {
-              "goal": "email"
-            },
-            "type": "string",
-            "default": "Thanks!"
-          },
-          "messageEmailPost": {
-            "order": 13,
-            "title": "Post Signup Message",
-            "showIf": {
-              "goal": "email"
-            },
-            "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
-            "type": "string",
-            "format": "markdown",
-            "default": "You will now regularly hear about our new events and information!"
-          },
-        "buttonText": {
-          "order": 14,
-          "title": "Button text",
-          "showIf": {
-            "goal": "page"
-            },
-          "type": "string",
-          "default": "Let's go!"
-        },
-        "buttonLink": {
-          "order": 15,
-          "title": "Button Link",
-          "showIf": {
-            "goal": "page"
-            },
-          "type": "string",
-          "default": "http://eager.io"
-        },
-        "buttonColor": {
-          "order": 16,
-          "title": "Button Color",
-          "showIf": {
-            "goal": "page"
-            },
-          "type": "string",
-          "format": "color",
-          "default": "#006ef0"
-          },
-        "buttonTextColor": {
-          "order": 17,
-          "title": "Button Text Color",
-          "showIf": {
-            "goal": "page"
-            },
-          "type": "string",
-          "format": "color",
-          "default": "#f9fff8"
-          },
-          "headingPage": {
-            "order": 18,
-            "title": "Heading",
-            "showIf": {
-              "goal": "page"
-            },
-            "type": "string",
-            "default": "Discounts up to 75% off!"
-          },
-          "messagePage": {
-            "order": 19,
-            "title": "Message",
-            "showIf": {
-              "goal": "page"
-            },
-            "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
-            "type": "string",
-            "format": "markdown",
-            "default": "Click the button below to learn more!"
-          },
-        "headingMessage": {
-        "order": 20,
-        "title": "Heading",
-        "showIf": {
-          "goal": "message"
-        },
-        "type": "string",
-        "default": "Announcement!"
-      },
-      "messageMessage": {
-        "order": 21,
-        "title": "Message",
-        "showIf": {
-          "goal": "message"
-        },
-        "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
-        "type": "string",
-        "format": "markdown",
-        "default": "We would all like to thank you for visiting our site, and we hope you have a great day!"
-      },   
-      "imageToggle": {
-        "order": 22,
-        "type": "boolean",
-        "title": "Show a Cover Image",
-        "default": true
-      },
-      "image": {
-        "order": 23,
-        "title": "Cover Image",
-        "description": "Optionally display an image above your message.",
-        "type": "string",
-        "format": "image",
-        "showIf": "imageToggle",
-        "default": "https://i.imgur.com/63YqwJg.png"
-      },
-      "theme": {
-        "order": 24,
-        "title": "Theme",
-        "type": "string",
-        "enum": [
-          "light",
-          "dark"
-        ],
-        "enumNames": {
-          "light": "Light",
-          "dark": "Dark"
-        },
-        "default": "light"
-      },
-      "showFrequency": {
-        "order": 25,
-        "title": "Show frequency",
-        "type": "string",
-        "default": "once",
-        "enum": ["once", "always"],
-        "enumNames": {
-          "once": "Show to each visitor once",
-          "always": "Show on every page view"
+          "email": "Gather emails to sign visitors up for your newsletter",
+          "page": "Redirect them to a special page",
+          "message": "Just show a message"
         }
       },
-      "hideBeforeToggle": {
-        "order": 26,
-        "type": "boolean",
-        "title": "Hide the message before a specific date",
-        "default": false
+
+      "message": {
+        "default": "## Announcement\nStay up to date with all of our current news!",
+        "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
+        "order": 2,
+        "title": "Message",
+        "format": "markdown",
+        "type": "string"
       },
-      "hideBefore": {
-        "order": 27,
-        "type": "string",
-        "format": "date",
-        "title": "Hide Before",
-        "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors before this date.",
-        "showIf": "hideBeforeToggle",
-        "default": "30-12-2016"
+
+      "email": {
+        "showIf": {
+          "goal": {
+            "op": "==",
+            "value": "email"
+          }
+        },
+        "type": "object",
+        "properties": {
+          "buttonText": {
+            "default": "Send",
+            "order": 3,
+            "title": "Button text",
+            "type": "string"
+          },
+
+          "buttonBackgroundColor": {
+            "order": 4,
+            "title": "Button color",
+            "type": "string",
+            "format": "color",
+            "default": "#006ef0"
+          },
+
+          "buttonTextColor": {
+            "order": 5,
+            "title": "Button text color",
+            "type": "string",
+            "format": "color",
+            "default": "#f9fff8"
+          }
+        }
       },
-      "hideAfterToggle": {
-        "order": 28,
-        "type": "boolean",
-        "title": "Hide the message after a specific date",
-        "default": false
-      },
-      "hideAfter": {
-        "order": 29,
-        "type": "string",
-        "format": "date",
-        "title": "Hide After",
-        "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors after this date.",
-        "showIf": "hideAfterToggle",
-        "default": "1-1-2017"
+
+      "page": {
+        "showIf": {
+          "goal": {
+            "op": "==",
+            "value": "email"
+          }
+        },
+        "type": "object",
+        "properties": {
+          "buttonText": {
+            "default": "Let's go!",
+            "order": 1,
+            "title": "Button text",
+            "type": "string"
+          },
+
+          "buttonLink": {
+            "placeholder": "http://...",
+            "default": "https://eager.io",
+            "order": 2,
+            "title": "Button text",
+            "type": "string"
+          },
+
+          "buttonBackgroundColor": {
+            "order": 4,
+            "title": "Button color",
+            "type": "string",
+            "format": "color",
+            "default": "#006ef0"
+          },
+
+          "buttonTextColor": {
+            "order": 5,
+            "title": "Button text color",
+            "type": "string",
+            "format": "color",
+            "default": "#f9fff8"
+          }
+        }
       }
     }
   }
