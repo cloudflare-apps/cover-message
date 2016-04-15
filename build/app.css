@@ -29,7 +29,8 @@
           justify-content: center;
 }
 
-.eager-cover-message[data-form="submitting"] {
+.eager-cover-message[data-form="submitting"] eager-dialog,
+.eager-cover-message[data-goal="submitting"] input[type="submit"] {
   cursor: wait;
 }
 
@@ -157,7 +158,7 @@ eager-dialog-content-text > *:last-child {
   color: #000;
 }
 
-.eager-cover-message .submit-button {
+.eager-cover-message input[type="submit"] {
   border-radius: .1875em;
   border: 0;
   box-shadow: none;
@@ -185,7 +186,12 @@ eager-dialog-content-text > *:last-child {
   width: auto;
 }
 
-.eager-cover-message .input-email {
+.eager-cover-message input[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.eager-cover-message input[type="email"] {
   display: inline-block;
   vertical-align: baseline;
   width: auto;
@@ -206,13 +212,17 @@ eager-dialog-content-text > *:last-child {
           flex: 1 1 auto;
 }
 
-.eager-cover-message .input-email:hover {
+.eager-cover-message input[type="email"]:hover {
   border-bottom-color: #ddd;
 }
 
-.eager-cover-message .input-email:focus {
+.eager-cover-message input[type="email"]:focus {
   border-bottom-color: #ccc;
   outline: none;
+}
+
+.eager-cover-message input[type="email"]:disabled {
+  background-color: #FFFFD6;
 }
 
 .eager-cover-message form {

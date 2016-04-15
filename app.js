@@ -113,6 +113,7 @@
   const submitHandlers = {
     signup(event) {
       event.preventDefault()
+
       element.setAttribute("data-form", "submitting")
 
       const email = event.target.querySelector("input[name='_replyto']").value
@@ -126,7 +127,7 @@
         }
         else {
           options.signupSuccessTitle = "Whoops"
-          options.signupSuccessText = "Something didn’t work. Please try again."
+          options.signupSuccessText = "Something didn’t work. Please check your email address and try again."
         }
 
         updateElement()
@@ -156,7 +157,7 @@
         ${esc(options.announcementText || "Sale! Everything is 75% off this entire week.")}
 
         <form>
-          <input type="submit" class="submit-button" value="${esc(options.announcementButtonText || "Got it!")}">
+          <input type="submit" value="${esc(options.announcementButtonText || "Got it!")}">
         </form>
       `
     },
@@ -167,7 +168,7 @@
         ${esc(options.ctaText || "We just launched an amazing new product!")}
 
         <form>
-          <input type="submit" class="submit-button" value="${esc(options.ctaButtonText || "Take me there!")}">
+          <input type="submit" value="${esc(options.ctaButtonText || "Take me there!")}">
         </form>
       `
     },
@@ -178,12 +179,11 @@
 
         <form>
           <input
-            class="input-email"
             name="_replyto"
             placeholder="${esc(options.signupInputPlaceholder || "Email address")}"
             required
             type="email" />
-          <input class="submit-button" type="submit" value="${esc(options.signupButtonText || "Sign up!")}">
+          <input type="submit" value="${esc(options.signupButtonText || "Sign up!")}">
         </form>
       `
     },
@@ -232,7 +232,16 @@
 
     element.querySelector("eager-dialog").addEventListener("click", hide)
     element.querySelector("eager-dialog-close-button").addEventListener("click", hide)
-    element.querySelector(".submit-button").style.backgroundColor = options.color
+    element.querySelector("input[type='submit']").style.backgroundColor = options.color
+
+    if (!options.userEmail) {
+      const emailInput = element.querySelector("form input[type='email']")
+      const submitInput = element.querySelector("form input[type='submit']")
+
+      emailInput.placeholder = "Please fill your email in the Eager app installer."
+      emailInput.disabled = true
+      submitInput.disabled = true
+    }
   }
 
   function bootstrap() {

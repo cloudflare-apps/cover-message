@@ -112,6 +112,7 @@
   var submitHandlers = {
     signup: function signup(event) {
       event.preventDefault();
+
       element.setAttribute("data-form", "submitting");
 
       var email = event.target.querySelector("input[name='_replyto']").value;
@@ -124,7 +125,7 @@
           setTimeout(hide, 3000);
         } else {
           options.signupSuccessTitle = "Whoops";
-          options.signupSuccessText = "Something didn’t work. Please try again.";
+          options.signupSuccessText = "Something didn’t work. Please check your email address and try again.";
         }
 
         updateElement();
@@ -148,13 +149,13 @@
 
   var renderers = {
     announcement: function announcement() {
-      return "\n        <eager-dialog-content-title>" + esc(options.announcementTitle || "Announcement") + "</eager-dialog-content-title>\n        " + esc(options.announcementText || "Sale! Everything is 75% off this entire week.") + "\n\n        <form>\n          <input type=\"submit\" class=\"submit-button\" value=\"" + esc(options.announcementButtonText || "Got it!") + "\">\n        </form>\n      ";
+      return "\n        <eager-dialog-content-title>" + esc(options.announcementTitle || "Announcement") + "</eager-dialog-content-title>\n        " + esc(options.announcementText || "Sale! Everything is 75% off this entire week.") + "\n\n        <form>\n          <input type=\"submit\" value=\"" + esc(options.announcementButtonText || "Got it!") + "\">\n        </form>\n      ";
     },
     cta: function cta() {
-      return "\n        <eager-dialog-content-title>" + esc(options.ctaTitle || "New products!") + "</eager-dialog-content-title>\n\n        " + esc(options.ctaText || "We just launched an amazing new product!") + "\n\n        <form>\n          <input type=\"submit\" class=\"submit-button\" value=\"" + esc(options.ctaButtonText || "Take me there!") + "\">\n        </form>\n      ";
+      return "\n        <eager-dialog-content-title>" + esc(options.ctaTitle || "New products!") + "</eager-dialog-content-title>\n\n        " + esc(options.ctaText || "We just launched an amazing new product!") + "\n\n        <form>\n          <input type=\"submit\" value=\"" + esc(options.ctaButtonText || "Take me there!") + "\">\n        </form>\n      ";
     },
     signup: function signup() {
-      return "\n        <eager-dialog-content-title>" + esc(options.signupTitle || "Sign up") + "</eager-dialog-content-title>\n        " + (options.signupText || "Join our mailing list to be the first to know what we’re up to!") + "\n\n        <form>\n          <input\n            class=\"input-email\"\n            name=\"_replyto\"\n            placeholder=\"" + esc(options.signupInputPlaceholder || "Email address") + "\"\n            required\n            type=\"email\" />\n          <input class=\"submit-button\" type=\"submit\" value=\"" + esc(options.signupButtonText || "Sign up!") + "\">\n        </form>\n      ";
+      return "\n        <eager-dialog-content-title>" + esc(options.signupTitle || "Sign up") + "</eager-dialog-content-title>\n        " + (options.signupText || "Join our mailing list to be the first to know what we’re up to!") + "\n\n        <form>\n          <input\n            name=\"_replyto\"\n            placeholder=\"" + esc(options.signupInputPlaceholder || "Email address") + "\"\n            required\n            type=\"email\" />\n          <input type=\"submit\" value=\"" + esc(options.signupButtonText || "Sign up!") + "\">\n        </form>\n      ";
     },
     signupSuccess: function signupSuccess() {
       return "\n        <eager-dialog-content-title>" + esc(options.signupSuccessTitle || "Thanks for signing up!") + "</eager-dialog-content-title>\n        " + esc(options.signupSuccessText || "You'll be kept up to date with our newsletter.") + "\n      ";
@@ -185,7 +186,16 @@
 
     element.querySelector("eager-dialog").addEventListener("click", hide);
     element.querySelector("eager-dialog-close-button").addEventListener("click", hide);
-    element.querySelector(".submit-button").style.backgroundColor = options.color;
+    element.querySelector("input[type='submit']").style.backgroundColor = options.color;
+
+    if (!options.userEmail) {
+      var emailInput = element.querySelector("form input[type='email']");
+      var submitInput = element.querySelector("form input[type='submit']");
+
+      emailInput.placeholder = "Please fill your email in the Eager app installer.";
+      emailInput.disabled = true;
+      submitInput.disabled = true;
+    }
   }
 
   function bootstrap() {
