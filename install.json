@@ -79,7 +79,7 @@
         },
         "title": "URL to drive traffic to",
         "type": "string",
-        "default": "http://eager.io",
+        "default": "https://eager.io",
         "placeholder": "http://"
       },
 
