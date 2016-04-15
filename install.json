@@ -188,19 +188,29 @@
         "default": "Sign up!",
         "placeholder": "Sign up!"
       },
-      "signupSuccessText": {
+      "signupSuccessTitle": {
         "order": 14,
+        "showIf": {
+          "goal": "signup"
+        },
+        "title": "Thank you title",
+        "description": "This title will display after visitors enter their email.",
+        "type": "string",
+        "default": "Thanks for signing up!"
+      },
+      "signupSuccessText": {
+        "order": 15,
         "showIf": {
           "goal": "signup"
         },
         "title": "Thank you text",
         "description": "This text will display after visitors enter their email.",
         "type": "string",
-        "default": "Thanks for signing up! :)"
+        "default": "You will now be kept up to date with our latest information"
       },
 
       "announcementTitle": {
-        "order": 15,
+        "order": 16,
         "showIf": {
           "goal": "announcement"
         },
@@ -211,7 +221,7 @@
       },
 
       "announcementText": {
-        "order": 16,
+        "order": 17,
         "showIf": {
           "goal": "announcement"
         },
@@ -222,7 +232,7 @@
       },
 
       "announcementButtonText": {
-        "order": 17,
+        "order": 18,
         "showIf": {
           "goal": "announcement"
         },
@@ -233,7 +243,7 @@
       },
 
       "color": {
-        "order": 18,
+        "order": 19,
         "title": "Accent color",
         "type": "string",
         "format": "color",
