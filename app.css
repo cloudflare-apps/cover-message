@@ -47,14 +47,14 @@
   position: relative;
   display: block;
   color: #444;
-  max-width: 37em;
+  min-width: 37em;
+  min-height: 37em;
 }
 
 eager-dialog-content {
   position: relative;
   display: block;
   color: #444;
-  max-width: 37em;
 }
 
 eager-dialog-content,
