@@ -18,6 +18,7 @@
   position: fixed;
   right: 0;
   top: 0;
+  z-index: 20004;
 }
 
 .eager-cover-message eager-dialog {
