@@ -114,7 +114,7 @@
       const email = event.target.querySelector("input[name='_replyto']").value
 
       function callback(ok){
-        options.announcementTitle = "&nbsp;"
+        options.announcementTitle = options.signupSuccessTitle
         options.announcementText = options.signupSuccessText
 
         options.goal = "announcement"
