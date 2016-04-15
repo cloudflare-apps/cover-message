@@ -95,11 +95,11 @@ eager-dialog-content-text a {
 
 eager-dialog-content-text > *:first-child {
   margin-right: 3em;
-  margin-top: 0
+  margin-top: 0;
 }
 
 eager-dialog-content-text > *:last-child {
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 .eager-cover-message eager-dialog-content-title {
