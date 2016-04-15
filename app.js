@@ -26,7 +26,7 @@
   }
 
   function submitFormspree(options, email, cb) {
-    const url = `//formspree.io/${options.email}`
+    const url = `https://formspree.io/${options.userEmail}`
     const xhr = new XMLHttpRequest()
     const params = `email=${encodeURIComponent(email)}`
 
@@ -123,7 +123,8 @@
     cta(event) {
       event.preventDefault()
 
-      window.location = options.pageButtonLink
+      // cta link address must be https:// to work in test, not sure in development
+      window.location = options.ctaLinkAddress
     },
     announcement(event) {
       event.preventDefault()
