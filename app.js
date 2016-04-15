@@ -1,8 +1,16 @@
 (function() {
   if (!window.addEventListener) return // Check for IE9+
 
+  const escapeElement = document.createElement("textarea")
+  const preview = INSTALL_ID === "preview"
   let options = INSTALL_OPTIONS
   let element
+
+  function esc(content = "") {
+    escapeElement.textContent = content
+
+    return escapeElement.innerHTML
+  }
 
   function submitConstantContact(options, email, cb) {
     if (!options.form || !options.form.listId) return cb(false)
@@ -66,24 +74,22 @@
       delete window[cbCode]
     }
 
-    let url = options.list
+    let src = options.list
 
-    if (!url) return cb(false)
+    if (!src) return cb(false)
 
-    url = url.replace("http", "https")
-    url = url.replace(/list-manage[0-9]+\.com/, "list-manage.com")
-    url = url.replace("?", "/post-json?")
-    url = url + "&EMAIL=" + encodeURIComponent(email)
-    url = url + "&c=" + cbCode
+    src = src.replace("http", "https")
+    src = src.replace(/list-manage[0-9]+\.com/, "list-manage.com")
+    src = src.replace("?", "/post-json?")
+    src = src + "&EMAIL=" + encodeURIComponent(email)
+    src = src + "&c=" + cbCode
 
-    const script = Object.assign(document.createElement("script"), {
-      src: url
-    })
+    const script = Object.assign(document.createElement("script"), {src})
 
     document.head.appendChild(script)
   }
 
-  function emailUtilsSubmit(options, email, callback) {
+  function delegateEmailSubmit(options, email, callback) {
     if (options.signupDestination === "email" && options.userEmail) {
       submitFormspree(options, email, callback)
     }
@@ -98,44 +104,43 @@
   }
 
   function hide(event) {
-    if (event.target !== this) return
+    if (event && event.target !== this) return
 
     element.setAttribute("data-visibility", "hidden")
-  }
-
-  function timeoutHide() {
-    element.setAttribute("data-visibility", "hidden")
+    document.body.style.overflow = ""
   }
 
   const submitHandlers = {
     signup(event) {
       event.preventDefault()
+      element.setAttribute("data-form", "submitting")
 
       const email = event.target.querySelector("input[name='_replyto']").value
 
-      function callback(ok){
-        options.announcementTitle = options.signupSuccessTitle
-        options.announcementText = options.signupSuccessText
-
-        options.goal = "announcement"
+      delegateEmailSubmit(options, email, ok => {
+        element.setAttribute("data-form", "submitted")
+        options.goal = "signupSuccess"
 
         if (ok) {
-          setTimeout(timeoutHide, 3000)
-        } 
+          setTimeout(hide, 3000)
+        }
         else {
-          options.announcementText = "Whoops, something didn’t work. Please try again."
+          options.signupSuccessTitle = "Whoops"
+          options.signupSuccessText = "Something didn’t work. Please try again."
         }
 
         updateElement()
-      }
-
-      emailUtilsSubmit(options, email, callback)
+      })
     },
     cta(event) {
       event.preventDefault()
 
-      // cta link address must be https:// to work in test, not sure in development
-      window.location = options.ctaLinkAddress
+      if (preview) {
+        window.location.reload()
+      }
+      else {
+        window.location = options.ctaLinkAddress
+      }
     },
     announcement(event) {
       event.preventDefault()
@@ -145,50 +150,47 @@
   }
 
   const renderers = {
-    wrapper(children) {
-      return `
-        <eager-backdrop></eager-backdrop>
-
-        <eager-dialog>
-          <eager-dialog-content>
-            <eager-dialog-content-text>
-              ${children}
-              <eager-dialog-close-button></eager-dialog-close-button>
-            </eager-dialog-content-text>
-          </eager-dialog-content>
-        </eager-dialog>
-      `
-    },
-    signup() {
-      return `
-        <eager-dialog-content-title>${options.signupTitle || "Sign up"}</eager-dialog-content-title>
-        ${options.signupText}
-
-        <form class="clearfix signup">
-          <input class="input-email" name="_replyto" placeholder="${options.signupInputPlaceholder}" required type="email" />
-          <input type="submit" class="submit-button" value="${options.signupButtonText || "Sign up!"}">
-        </form>
-      `
-    },
     announcement() {
       return `
-        <eager-dialog-content-title>${options.announcementTitle || "Announcement"}</eager-dialog-content-title>
-        ${options.announcementText}
+        <eager-dialog-content-title>${esc(options.announcementTitle || "Announcement")}</eager-dialog-content-title>
+        ${esc(options.announcementText || "Sale! Everything is 75% off this entire week.")}
 
-        <form class="clearfix announcement">
-          <input type="submit" class="submit-button" value="${options.announcementButtonText || "Got it!"}">
+        <form>
+          <input type="submit" class="submit-button" value="${esc(options.announcementButtonText || "Got it!")}">
         </form>
       `
     },
     cta() {
       return `
-        <eager-dialog-content-title>${options.ctaTitle || "New products!"}</eager-dialog-content-title>
+        <eager-dialog-content-title>${esc(options.ctaTitle || "New products!")}</eager-dialog-content-title>
 
-        ${options.ctaText}
+        ${esc(options.ctaText || "We just launched an amazing new product!")}
 
-        <form class="clearfix cta">
-          <input type="submit" class="submit-button" value="${options.ctaButtonText || "Take me there!"}">
+        <form>
+          <input type="submit" class="submit-button" value="${esc(options.ctaButtonText || "Take me there!")}">
         </form>
+      `
+    },
+    signup() {
+      return `
+        <eager-dialog-content-title>${esc(options.signupTitle || "Sign up")}</eager-dialog-content-title>
+        ${options.signupText || "Join our mailing list to be the first to know what we’re up to!"}
+
+        <form>
+          <input
+            class="input-email"
+            name="_replyto"
+            placeholder="${esc(options.signupInputPlaceholder || "Email address")}"
+            required
+            type="email" />
+          <input class="submit-button" type="submit" value="${esc(options.signupButtonText || "Sign up!")}">
+        </form>
+      `
+    },
+    signupSuccess() {
+      return `
+        <eager-dialog-content-title>${esc(options.signupSuccessTitle || "Thanks for signing up!")}</eager-dialog-content-title>
+        ${esc(options.signupSuccessText || "You'll be kept up to date with our newsletter.")}
       `
     }
   }
@@ -206,11 +208,25 @@
 
     element.classList.add("eager-cover-message")
     element.setAttribute("data-visibility", "visible")
+    element.setAttribute("data-goal", options.goal)
+
+    document.body.style.overflow = "hidden"
 
     const children = renderers[options.goal]()
 
-    element.innerHTML = renderers.wrapper(children)
+    element.innerHTML = `
+      <eager-backdrop></eager-backdrop>
 
+      <eager-dialog>
+        <eager-dialog-content>
+          <eager-dialog-close-button></eager-dialog-close-button>
+
+          <eager-dialog-content-text>
+            ${children}
+          </eager-dialog-content-text>
+        </eager-dialog-content>
+      </eager-dialog>
+    `
 
     element.querySelector("form").addEventListener("submit", submitHandlers[options.goal])
 
@@ -219,10 +235,10 @@
     element.querySelector(".submit-button").style.backgroundColor = options.color
   }
 
-  const alreadyShown = localStorage.eagerCoverMessageShown === JSON.stringify(options)
-
   function bootstrap() {
-    if (alreadyShown && INSTALL_ID !== "preview") return
+    const alreadyShown = localStorage.eagerCoverMessageShown === JSON.stringify(options)
+
+    if (alreadyShown && !preview) return
 
     updateElement()
   }
