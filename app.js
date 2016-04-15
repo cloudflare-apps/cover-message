@@ -103,17 +103,28 @@
     element.setAttribute("data-visibility", "hidden")
   }
 
+  function timeoutHide() {
+    element.setAttribute("data-visibility", "hidden")
+  }
+
   const submitHandlers = {
     signup(event) {
       event.preventDefault()
 
       const email = event.target.querySelector("input[name='_replyto']").value
 
-      function callback(){
+      function callback(ok){
         options.announcementTitle = "&nbsp;"
         options.announcementText = options.signupSuccessText
 
         options.goal = "announcement"
+
+        if (ok) {
+          setTimeout(timeoutHide, 3000)
+        } 
+        else {
+          options.announcementText = "Whoops, something didn’t work. Please try again."
+        }
 
         updateElement()
       }
