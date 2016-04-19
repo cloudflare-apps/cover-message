@@ -1,6 +1,7 @@
+import {submitConstantContact, submitFormspree, submitMailchimp} from "eager-email-utils"
+
 (function() {
   if (!window.addEventListener) return // Check for IE9+
-
   const escapeElement = document.createElement("textarea")
   const preview = INSTALL_ID === "preview"
   let options = INSTALL_OPTIONS
@@ -10,83 +11,6 @@
     escapeElement.textContent = content
 
     return escapeElement.innerHTML
-  }
-
-  function submitConstantContact(options, email, cb) {
-    if (!options.form || !options.form.listId) return cb(false)
-
-    const xhr = new XMLHttpRequest()
-
-    const body = {
-      email,
-      ca: options.form.campaignActivity,
-      list: options.form.listId
-    }
-
-    xhr.open("POST", "https://visitor2.constantcontact.com/api/signup")
-    xhr.setRequestHeader("Content-type", "application/json")
-    xhr.setRequestHeader("Accept", "application/json")
-    xhr.onload = function () {
-      cb(xhr && xhr.status < 400)
-    }
-
-    xhr.send(JSON.stringify(body))
-  }
-
-  function submitFormspree(options, email, cb) {
-    const url = `https://formspree.io/${options.userEmail}`
-    const xhr = new XMLHttpRequest()
-    const params = `email=${encodeURIComponent(email)}`
-
-    xhr.open("POST", url)
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-    xhr.setRequestHeader("Accept", "application/json")
-    xhr.onload = function() {
-      let jsonResponse = {}
-
-      if (xhr.status < 400) {
-        try {
-          jsonResponse = JSON.parse(xhr.response)
-        }
-        catch (e) {}
-
-        if (jsonResponse && jsonResponse.success === "confirmation email sent") {
-          cb("Formspree has sent an email to " + options.email + " for verification.")
-        }
-        else {
-          cb(true)
-        }
-      }
-      else {
-        cb(false)
-      }
-    }
-
-    xhr.send(params)
-  }
-
-  function submitMailchimp(options, email, cb) {
-    const cbCode = "eagerFormCallback" + Math.floor(Math.random() * 100000000000000)
-
-    window[cbCode] = function(resp) {
-      cb(resp && resp.result === "success")
-
-      delete window[cbCode]
-    }
-
-    let src = options.list
-
-    if (!src) return cb(false)
-
-    src = src.replace("http", "https")
-    src = src.replace(/list-manage[0-9]+\.com/, "list-manage.com")
-    src = src.replace("?", "/post-json?")
-    src = src + "&EMAIL=" + encodeURIComponent(email)
-    src = src + "&c=" + cbCode
-
-    const script = Object.assign(document.createElement("script"), {src})
-
-    document.head.appendChild(script)
   }
 
   function delegateEmailSubmit(options, email, callback) {
