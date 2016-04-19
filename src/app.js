@@ -1,17 +1,11 @@
 import {submitConstantContact, submitFormspree, submitMailchimp} from "eager-email-utils"
+import * as renderers from "./renderers"
 
 (function() {
   if (!window.addEventListener) return // Check for IE9+
-  const escapeElement = document.createElement("textarea")
   const preview = INSTALL_ID === "preview"
   let options = INSTALL_OPTIONS
   let element
-
-  function esc(content = "") {
-    escapeElement.textContent = content
-
-    return escapeElement.innerHTML
-  }
 
   function delegateEmailSubmit(options, email, callback) {
     if (options.signupDestination === "email" && options.userEmail) {
@@ -74,51 +68,6 @@ import {submitConstantContact, submitFormspree, submitMailchimp} from "eager-ema
     }
   }
 
-  const renderers = {
-    announcement() {
-      return `
-        <eager-dialog-content-title>${esc(options.announcementTitle || "Announcement")}</eager-dialog-content-title>
-        ${esc(options.announcementText || "Sale! Everything is 75% off this entire week.")}
-
-        <form>
-          <input type="submit" value="${esc(options.announcementButtonText || "Got it!")}">
-        </form>
-      `
-    },
-    cta() {
-      return `
-        <eager-dialog-content-title>${esc(options.ctaTitle || "New products!")}</eager-dialog-content-title>
-
-        ${esc(options.ctaText || "We just launched an amazing new product!")}
-
-        <form>
-          <input type="submit" value="${esc(options.ctaButtonText || "Take me there!")}">
-        </form>
-      `
-    },
-    signup() {
-      return `
-        <eager-dialog-content-title>${esc(options.signupTitle || "Sign up")}</eager-dialog-content-title>
-        ${options.signupText || "Join our mailing list to be the first to know what we’re up to!"}
-
-        <form>
-          <input
-            name="_replyto"
-            placeholder="${esc(options.signupInputPlaceholder || "Email address")}"
-            required
-            type="email" />
-          <input type="submit" value="${esc(options.signupButtonText || "Sign up!")}">
-        </form>
-      `
-    },
-    signupSuccess() {
-      return `
-        <eager-dialog-content-title>${esc(options.signupSuccessTitle || "Thanks for signing up!")}</eager-dialog-content-title>
-        ${esc(options.signupSuccessText || "You'll be kept up to date with our newsletter.")}
-      `
-    }
-  }
-
   function updateElement() {
     try {
       localStorage.eagerCoverMessageShown = JSON.stringify(options)
@@ -136,7 +85,7 @@ import {submitConstantContact, submitFormspree, submitMailchimp} from "eager-ema
 
     document.body.style.overflow = "hidden"
 
-    const children = renderers[options.goal]()
+    const children = renderers[options.goal](options)
 
     element.innerHTML = `
       <eager-backdrop></eager-backdrop>

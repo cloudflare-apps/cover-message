@@ -84,20 +84,44 @@
     xhr.send(JSON.stringify(body));
   };
 
+  var escapeElement = document.createElement("textarea");
+
+  function esc() {
+    var content = arguments.length <= 0 || arguments[0] === undefined ? "" : arguments[0];
+
+    escapeElement.textContent = content;
+
+    return escapeElement.innerHTML;
+  }
+
+  function announcement(options) {
+    return "\n    <eager-dialog-content-title>" + esc(options.announcementTitle || "Announcement") + "</eager-dialog-content-title>\n    " + esc(options.announcementText || "Sale! Everything is 75% off this entire week.") + "\n\n    <form>\n      <input type=\"submit\" value=\"" + esc(options.announcementButtonText || "Got it!") + "\">\n    </form>\n  ";
+  }
+
+  function cta(options) {
+    return "\n    <eager-dialog-content-title>" + esc(options.ctaTitle || "New products!") + "</eager-dialog-content-title>\n\n    " + esc(options.ctaText || "We just launched an amazing new product!") + "\n\n    <form>\n      <input type=\"submit\" value=\"" + esc(options.ctaButtonText || "Take me there!") + "\">\n    </form>\n  ";
+  }
+
+  function signup(options) {
+    return "\n    <eager-dialog-content-title>" + esc(options.signupTitle || "Sign up") + "</eager-dialog-content-title>\n    " + (options.signupText || "Join our mailing list to be the first to know what we’re up to!") + "\n\n    <form>\n      <input\n        name=\"_replyto\"\n        placeholder=\"" + esc(options.signupInputPlaceholder || "Email address") + "\"\n        required\n        type=\"email\" />\n      <input type=\"submit\" value=\"" + esc(options.signupButtonText || "Sign up!") + "\">\n    </form>\n  ";
+  }
+
+  function signupSuccess(options) {
+    return "\n    <eager-dialog-content-title>" + esc(options.signupSuccessTitle || "Thanks for signing up!") + "</eager-dialog-content-title>\n    " + esc(options.signupSuccessText || "You'll be kept up to date with our newsletter.") + "\n  ";
+  }
+
+var renderers = Object.freeze({
+    announcement: announcement,
+    cta: cta,
+    signup: signup,
+    signupSuccess: signupSuccess
+  });
+
   (function () {
     if (!window.addEventListener) return; // Check for IE9+
-    var escapeElement = document.createElement("textarea");
     var preview = INSTALL_ID === "preview";
     var options = INSTALL_OPTIONS;
     var element = void 0;
-
-    function esc() {
-      var content = arguments.length <= 0 || arguments[0] === undefined ? "" : arguments[0];
-
-      escapeElement.textContent = content;
-
-      return escapeElement.innerHTML;
-    }
 
     function delegateEmailSubmit(options, email, callback) {
       if (options.signupDestination === "email" && options.userEmail) {
@@ -156,21 +180,6 @@
       }
     };
 
-    var renderers = {
-      announcement: function announcement() {
-        return "\n        <eager-dialog-content-title>" + esc(options.announcementTitle || "Announcement") + "</eager-dialog-content-title>\n        " + esc(options.announcementText || "Sale! Everything is 75% off this entire week.") + "\n\n        <form>\n          <input type=\"submit\" value=\"" + esc(options.announcementButtonText || "Got it!") + "\">\n        </form>\n      ";
-      },
-      cta: function cta() {
-        return "\n        <eager-dialog-content-title>" + esc(options.ctaTitle || "New products!") + "</eager-dialog-content-title>\n\n        " + esc(options.ctaText || "We just launched an amazing new product!") + "\n\n        <form>\n          <input type=\"submit\" value=\"" + esc(options.ctaButtonText || "Take me there!") + "\">\n        </form>\n      ";
-      },
-      signup: function signup() {
-        return "\n        <eager-dialog-content-title>" + esc(options.signupTitle || "Sign up") + "</eager-dialog-content-title>\n        " + (options.signupText || "Join our mailing list to be the first to know what we’re up to!") + "\n\n        <form>\n          <input\n            name=\"_replyto\"\n            placeholder=\"" + esc(options.signupInputPlaceholder || "Email address") + "\"\n            required\n            type=\"email\" />\n          <input type=\"submit\" value=\"" + esc(options.signupButtonText || "Sign up!") + "\">\n        </form>\n      ";
-      },
-      signupSuccess: function signupSuccess() {
-        return "\n        <eager-dialog-content-title>" + esc(options.signupSuccessTitle || "Thanks for signing up!") + "</eager-dialog-content-title>\n        " + esc(options.signupSuccessText || "You'll be kept up to date with our newsletter.") + "\n      ";
-      }
-    };
-
     function updateElement() {
       try {
         localStorage.eagerCoverMessageShown = JSON.stringify(options);
@@ -187,7 +196,7 @@
 
       document.body.style.overflow = "hidden";
 
-      var children = renderers[options.goal]();
+      var children = renderers[options.goal](options);
 
       element.innerHTML = "\n      <eager-backdrop></eager-backdrop>\n\n      <eager-dialog>\n        <eager-dialog-content>\n          <eager-dialog-close-button></eager-dialog-close-button>\n\n          <eager-dialog-content-text>\n            " + children + "\n          </eager-dialog-content-text>\n        </eager-dialog-content>\n      </eager-dialog>\n    ";
 
@@ -197,7 +206,7 @@
       element.querySelector("eager-dialog-close-button").addEventListener("click", hide);
       element.querySelector("input[type='submit']").style.backgroundColor = options.color;
 
-      if (!options.userEmail) {
+      if (options.goal === "signup" && !options.userEmail) {
         var emailInput = element.querySelector("form input[type='email']");
         var submitInput = element.querySelector("form input[type='submit']");
 
