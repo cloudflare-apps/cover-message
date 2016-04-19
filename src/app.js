@@ -158,7 +158,7 @@ import {submitConstantContact, submitFormspree, submitMailchimp} from "eager-ema
     element.querySelector("eager-dialog-close-button").addEventListener("click", hide)
     element.querySelector("input[type='submit']").style.backgroundColor = options.color
 
-    if (!options.userEmail) {
+    if (options.goal === "signup" && !options.userEmail) {
       const emailInput = element.querySelector("form input[type='email']")
       const submitInput = element.querySelector("form input[type='submit']")
 
