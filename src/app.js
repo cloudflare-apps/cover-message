@@ -115,7 +115,7 @@ import * as renderers from "./renderers"
       element.addEventListener("click", hide)
     }
 
-    if (options.goal === "signup" && !options.email) {
+    if (options.signupDestination === "email" && !options.email) {
       const emailInput = element.querySelector("form input[type='email']")
       const submitInput = element.querySelector("form input[type='submit']")
 

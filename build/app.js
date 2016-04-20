@@ -214,7 +214,7 @@ var renderers = Object.freeze({
         element.addEventListener("click", hide);
       }
 
-      if (options.goal === "signup" && !options.email) {
+      if (options.signupDestination === "email" && !options.email) {
         var emailInput = element.querySelector("form input[type='email']");
         var submitInput = element.querySelector("form input[type='submit']");
 
