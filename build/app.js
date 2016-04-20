@@ -123,14 +123,14 @@ var renderers = Object.freeze({
     var options = INSTALL_OPTIONS;
     var element = void 0;
 
-    function delegateEmailSubmit(options, email, callback) {
-      if (options.signupDestination === "email" && options.userEmail) {
-        submitFormspree(options, email, callback);
+    function delegateEmailSubmit(receiver, callback) {
+      if (options.signupDestination === "email" && options.email) {
+        submitFormspree(options, receiver, callback);
       } else if (options.signupDestination === "service") {
         if (options.account.service === "mailchimp") {
-          submitMailchimp(options, email, callback);
+          submitMailchimp(options, receiver, callback);
         } else if (options.account.service === "constant-contact") {
-          submitConstantContact(options, email, callback);
+          submitConstantContact(options, receiver, callback);
         }
       }
     }
@@ -150,7 +150,7 @@ var renderers = Object.freeze({
 
         var email = event.target.querySelector("input[name='_replyto']").value;
 
-        delegateEmailSubmit(options, email, function (ok) {
+        delegateEmailSubmit(email, function (ok) {
           element.setAttribute("data-form", "submitted");
           options.goal = "signupSuccess";
 
@@ -200,13 +200,21 @@ var renderers = Object.freeze({
 
       element.innerHTML = "\n      <eager-backdrop></eager-backdrop>\n\n      <eager-dialog>\n        <eager-dialog-content>\n          <eager-dialog-close-button></eager-dialog-close-button>\n\n          <eager-dialog-content-text>\n            " + children + "\n          </eager-dialog-content-text>\n        </eager-dialog-content>\n      </eager-dialog>\n    ";
 
-      element.querySelector("form").addEventListener("submit", submitHandlers[options.goal]);
-
       element.querySelector("eager-dialog").addEventListener("click", hide);
-      element.querySelector("eager-dialog-close-button").addEventListener("click", hide);
-      element.querySelector("input[type='submit']").style.backgroundColor = options.color;
 
-      if (options.goal === "signup" && !options.userEmail) {
+      var formElement = element.querySelector("form");
+      var closeButton = element.querySelector("eager-dialog-close-button");
+
+      if (formElement) {
+        formElement.addEventListener("submit", submitHandlers[options.goal]);
+        formElement.querySelector("input[type='submit']").style.backgroundColor = options.color;
+      }
+
+      if (closeButton) {
+        element.addEventListener("click", hide);
+      }
+
+      if (options.goal === "signup" && !options.email) {
         var emailInput = element.querySelector("form input[type='email']");
         var submitInput = element.querySelector("form input[type='submit']");
 

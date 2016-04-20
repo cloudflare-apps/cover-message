@@ -7,16 +7,16 @@ import * as renderers from "./renderers"
   let options = INSTALL_OPTIONS
   let element
 
-  function delegateEmailSubmit(options, email, callback) {
-    if (options.signupDestination === "email" && options.userEmail) {
-      submitFormspree(options, email, callback)
+  function delegateEmailSubmit(receiver, callback) {
+    if (options.signupDestination === "email" && options.email) {
+      submitFormspree(options, receiver, callback)
     }
     else if (options.signupDestination === "service") {
       if (options.account.service === "mailchimp") {
-        submitMailchimp(options, email, callback)
+        submitMailchimp(options, receiver, callback)
       }
       else if (options.account.service === "constant-contact") {
-        submitConstantContact(options, email, callback)
+        submitConstantContact(options, receiver, callback)
       }
     }
   }
@@ -36,7 +36,7 @@ import * as renderers from "./renderers"
 
       const email = event.target.querySelector("input[name='_replyto']").value
 
-      delegateEmailSubmit(options, email, ok => {
+      delegateEmailSubmit(email, ok => {
         element.setAttribute("data-form", "submitted")
         options.goal = "signupSuccess"
 
@@ -101,13 +101,21 @@ import * as renderers from "./renderers"
       </eager-dialog>
     `
 
-    element.querySelector("form").addEventListener("submit", submitHandlers[options.goal])
-
     element.querySelector("eager-dialog").addEventListener("click", hide)
-    element.querySelector("eager-dialog-close-button").addEventListener("click", hide)
-    element.querySelector("input[type='submit']").style.backgroundColor = options.color
 
-    if (options.goal === "signup" && !options.userEmail) {
+    const formElement = element.querySelector("form")
+    const closeButton = element.querySelector("eager-dialog-close-button")
+
+    if (formElement) {
+      formElement.addEventListener("submit", submitHandlers[options.goal])
+      formElement.querySelector("input[type='submit']").style.backgroundColor = options.color
+    }
+
+    if (closeButton) {
+      element.addEventListener("click", hide)
+    }
+
+    if (options.goal === "signup" && !options.email) {
       const emailInput = element.querySelector("form input[type='email']")
       const submitInput = element.querySelector("form input[type='submit']")
 

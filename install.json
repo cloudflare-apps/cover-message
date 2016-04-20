@@ -100,7 +100,7 @@
         }
       },
 
-      "userEmail": {
+      "email": {
         "order": 7,
         "showIf": {
           "goal": "signup",
