@@ -210,11 +210,10 @@ var renderers = Object.freeze({
         formElement.querySelector("input[type='submit']").style.backgroundColor = options.color;
       }
 
-      if (closeButton) {
-        element.addEventListener("click", hide);
-      }
+      closeButton.addEventListener("click", hide);
+      element.addEventListener("click", hide);
 
-      if (options.signupDestination === "email" && !options.email) {
+      if (options.goal === "signup" && options.signupDestination === "email" && !options.email) {
         var emailInput = element.querySelector("form input[type='email']");
         var submitInput = element.querySelector("form input[type='submit']");
 
@@ -238,7 +237,7 @@ var renderers = Object.freeze({
       bootstrap();
     }
 
-    INSTALL_SCOPE = {
+    window.INSTALL_SCOPE = {
       setOptions: function setOptions(nextOptions) {
         options = nextOptions;
 
