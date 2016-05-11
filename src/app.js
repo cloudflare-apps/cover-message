@@ -111,9 +111,8 @@ import * as renderers from "./renderers"
       formElement.querySelector("input[type='submit']").style.backgroundColor = options.color
     }
 
-    if (closeButton) {
-      element.addEventListener("click", hide)
-    }
+    closeButton.addEventListener("click", hide)
+    element.addEventListener("click", hide)
 
     if (options.signupDestination === "email" && !options.email) {
       const emailInput = element.querySelector("form input[type='email']")
