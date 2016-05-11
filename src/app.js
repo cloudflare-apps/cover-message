@@ -114,7 +114,7 @@ import * as renderers from "./renderers"
     closeButton.addEventListener("click", hide)
     element.addEventListener("click", hide)
 
-    if (options.signupDestination === "email" && !options.email) {
+    if (options.goal === "signup" && options.signupDestination === "email" && !options.email) {
       const emailInput = element.querySelector("form input[type='email']")
       const submitInput = element.querySelector("form input[type='submit']")
 
@@ -139,7 +139,7 @@ import * as renderers from "./renderers"
     bootstrap()
   }
 
-  INSTALL_SCOPE = {
+  window.INSTALL_SCOPE = {
     setOptions(nextOptions) {
       options = nextOptions
 
