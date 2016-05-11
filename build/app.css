@@ -1,10 +1,10 @@
 .eager-cover-message {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
   bottom: 0;
+  display: none;
   left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   z-index: 10000;
 }
 
@@ -46,28 +46,28 @@
 }
 
 .eager-cover-message eager-dialog {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  box-sizing: border-box;
   cursor: default;
-  position: absolute;
-  z-index: 20005;
-  top: 0;
-  left: 0;
-  right: 0;
   display: block;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
+  left: 0;
   min-height: 100%;
   padding: 2em;
-  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 20005;
 }
 
 @media (max-width: 768px) {
@@ -77,15 +77,16 @@
 }
 
 .eager-cover-message eager-dialog-content {
-  position: relative;
   display: block;
   color: #444;
-  min-width: 37em;
+  max-width: 100%;
+  position: relative;
+  width: 37em;
 }
 
 eager-dialog-content {
-  position: relative;
   display: block;
+  position: relative;
   color: #444;
 }
 
@@ -136,31 +137,31 @@ eager-dialog-content-text > *:last-child {
 }
 
 .eager-cover-message eager-dialog-close-button:after {
-  position: absolute;
-  display: block;
+  -webkit-font-smoothing: antialiased;
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.35);
   content: "✕";
   cursor: pointer;
-  z-index: 20007;
-  top: 1em;
-  right: 1em;
-  height: 2em;
-  width: 2em;
-  font-size: 1.25em;
+  display: block;
   font-family: Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-align: center;
+  font-size: 1.25em;
+  height: 2em;
   line-height: 2;
-  color: rgba(0, 0, 0, .35);
-  border-radius: 3px;
+  position: absolute;
+  right: 1em;
+  text-align: center;
+  top: 1em;
+  width: 2em;
+  z-index: 20007;
 }
 
 .eager-cover-message eager-dialog-close-button:hover:after {
-  background: rgba(255, 255, 255, .35);
+  background: rgba(255, 255, 255, 0.35);
   color: #000;
 }
 
 .eager-cover-message input[type="submit"] {
-  border-radius: .1875em;
+  border-radius: 0.1875em;
   border: 0;
   box-shadow: none;
   color: #fff;
@@ -193,24 +194,24 @@ eager-dialog-content-text > *:last-child {
 }
 
 .eager-cover-message input[type="email"] {
-  display: inline-block;
-  vertical-align: baseline;
-  width: auto;
-  padding: .65em 1.6em .6em .9em;
-  height: auto;
-  border: 0;
   border-bottom: 1px solid transparent;
-  font-weight: bold;
-  letter-spacing: .08em;
-  text-indent: .08em;
-  white-space: nowrap;
-  overflow: hidden;
+  border: 0;
   box-shadow: none;
-  text-overflow: ellipsis;
+  display: inline-block;
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
+  font-weight: bold;
+  height: auto;
+  letter-spacing: .08em;
+  overflow: hidden;
+  padding: .65em 1.6em .6em .9em;
+  text-indent: .08em;
+  text-overflow: ellipsis;
+  vertical-align: baseline;
+  white-space: nowrap;
+  width: auto;
 }
 
 .eager-cover-message input[type="email"]:hover {
