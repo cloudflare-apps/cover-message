@@ -67,18 +67,12 @@
   width: 37em;
 }
 
-eager-dialog-content {
-  display: block;
-  position: relative;
-  color: #444;
-}
-
-eager-dialog-content,
-eager-dialog-content * {
+.eager-cover-message eager-dialog-content,
+.eager-cover-message eager-dialog-content * {
   font-family: inherit;
 }
 
-eager-dialog-content-text {
+.eager-cover-message eager-dialog-content-text {
   background: #fff;
   border: 2px solid #efefef;
   border-radius: 2px;
@@ -90,26 +84,26 @@ eager-dialog-content-text {
 }
 
 @media (max-width: 480px) {
-  eager-dialog-content-text {
+  .eager-cover-message eager-dialog-content-text {
     padding: 1em;
   }
 }
 
-eager-dialog-content-text > * {
+.eager-cover-message eager-dialog-content-text > * {
   text-indent: 0;
   margin: 1em 0;
 }
 
-eager-dialog-content-text a {
+.eager-cover-message eager-dialog-content-text a {
   text-decoration: none;
   font-weight: bold;
 }
 
-eager-dialog-content-text > *:first-child {
+.eager-cover-message eager-dialog-content-text > *:first-child {
   margin-top: 0;
 }
 
-eager-dialog-content-text > *:last-child {
+.eager-cover-message eager-dialog-content-text > *:last-child {
   margin-bottom: 0;
 }
 
@@ -117,6 +111,7 @@ eager-dialog-content-text > *:last-child {
   display: block;
   font-size: 1.5em;
   font-weight: bold;
+  line-height: 2;
 }
 
 .eager-cover-message eager-dialog-close-button:after {
