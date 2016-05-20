@@ -46,7 +46,7 @@
         },
         "title": "Message title",
         "type": "string",
-        "placeholder": "New products!"
+        "default": "New products!"
       },
 
       "ctaText": {
@@ -57,7 +57,7 @@
         "title": "Message text",
         "format": "textarea",
         "type": "string",
-        "placeholder": "We just launched an amazing new product!"
+        "default": "We just launched an amazing new product!"
       },
 
       "ctaButtonText": {
@@ -67,7 +67,7 @@
         },
         "title": "Button text",
         "type": "string",
-        "placeholder": "Take me there!"
+        "default": "Take me there!"
       },
 
       "ctaLinkAddress": {
@@ -78,7 +78,7 @@
         "title": "URL to drive traffic to",
         "type": "string",
         "default": "https://eager.io",
-        "placeholder": "http://"
+        "default": "http://"
       },
 
       "signupDestination": {
@@ -152,7 +152,7 @@
         },
         "title": "Message title",
         "type": "string",
-        "placeholder": "Sign up"
+        "default": "Sign up"
       },
 
       "signupText": {
@@ -163,7 +163,7 @@
         "title": "Message text",
         "format": "textarea",
         "type": "string",
-        "placeholder": "Join our mailing list to be the first to know what we’re up to!"
+        "default": "Join our mailing list to be the first to know what we’re up to!"
       },
       "signupInputPlaceholder": {
         "order": 12,
@@ -172,7 +172,7 @@
         },
         "title": "Input placeholder text",
         "type": "string",
-        "placeholder": "Email address"
+        "default": "Email address"
       },
       "signupButtonText": {
         "order": 13,
@@ -181,7 +181,7 @@
         },
         "title": "Button text",
         "type": "string",
-        "placeholder": "Sign up!"
+        "default": "Sign up!"
       },
       "signupSuccessTitle": {
         "order": 14,
@@ -191,7 +191,7 @@
         "title": "Thank you title",
         "description": "This title will display after visitors enter their email.",
         "type": "string",
-        "placeholder": "Thanks for signing up!"
+        "default": "Thanks for signing up!"
       },
       "signupSuccessText": {
         "order": 15,
@@ -201,7 +201,7 @@
         "title": "Thank you text",
         "description": "This text will display after visitors enter their email.",
         "type": "string",
-        "placeholder": "You'll be kept up to date with our newsletter."
+        "default": "You'll be kept up to date with our newsletter."
       },
 
       "announcementTitle": {
@@ -211,7 +211,7 @@
         },
         "title": "Message title",
         "type": "string",
-        "placeholder": "Announcement"
+        "default": "Announcement"
       },
 
       "announcementText": {
@@ -222,7 +222,7 @@
         "title": "Message text",
         "format": "textarea",
         "type": "string",
-        "placeholder": "Sale! Everything is 75% off this entire week."
+        "default": "Sale! Everything is 75% off this entire week."
       },
 
       "announcementButtonText": {
@@ -232,7 +232,7 @@
         },
         "title": "Button text",
         "type": "string",
-        "placeholder": "Got it!"
+        "default": "Got it!"
       },
 
       "color": {

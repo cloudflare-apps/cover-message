@@ -1,3 +1,6 @@
+import {options} from "../install.json"
+
+const {properties: schema} = options
 const escapeElement = document.createElement("textarea")
 
 function esc(content = "") {
@@ -6,48 +9,53 @@ function esc(content = "") {
   return escapeElement.innerHTML
 }
 
+function get(options, key) {
+  return esc(options[key] || schema[key].default || "")
+}
+
 export function announcement(options) {
   return `
-    <eager-dialog-content-title>${esc(options.announcementTitle || "Announcement")}</eager-dialog-content-title>
-    ${esc(options.announcementText || "Sale! Everything is 75% off this entire week.")}
+    <eager-dialog-content-title>${get(options, "announcementTitle")}</eager-dialog-content-title>
+    ${get(options, "announcementText")}
 
     <form>
-      <input type="submit" value="${esc(options.announcementButtonText || "Got it!")}">
+      <input type="submit" value="${get(options, "announcementButtonText")}">
     </form>
   `
 }
 
 export function cta(options) {
   return `
-    <eager-dialog-content-title>${esc(options.ctaTitle || "New products!")}</eager-dialog-content-title>
+    <eager-dialog-content-title>${get(options, "ctaTitle")}</eager-dialog-content-title>
 
-    ${esc(options.ctaText || "We just launched an amazing new product!")}
+    ${get(options, "ctaText")}
 
     <form>
-      <input type="submit" value="${esc(options.ctaButtonText || "Take me there!")}">
+      <input type="submit" value="${get(options, "ctaButtonText")}">
     </form>
   `
 }
 
 export function signup(options) {
   return `
-    <eager-dialog-content-title>${esc(options.signupTitle || "Sign up")}</eager-dialog-content-title>
-    ${options.signupText || "Join our mailing list to be the first to know what we’re up to!"}
+    <eager-dialog-content-title>${get(options, "signupTitle")}</eager-dialog-content-title>
+
+    ${get(options, "signupText")}
 
     <form>
       <input
         name="_replyto"
-        placeholder="${esc(options.signupInputPlaceholder || "Email address")}"
+        placeholder="${get(options, "signupInputPlaceholder")}"
         required
         type="email" />
-      <input type="submit" value="${esc(options.signupButtonText || "Sign up!")}">
+      <input type="submit" value="${get(options, "signupButtonText")}">
     </form>
   `
 }
 
 export function signupSuccess(options) {
   return `
-    <eager-dialog-content-title>${esc(options.signupSuccessTitle || "Thanks for signing up!")}</eager-dialog-content-title>
-    ${esc(options.signupSuccessText || "You'll be kept up to date with our newsletter.")}
+    <eager-dialog-content-title>${get(options, "signupSuccessTitle")}</eager-dialog-content-title>
+    ${get(options, "signupSuccessText")}
   `
 }
