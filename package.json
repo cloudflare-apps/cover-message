@@ -4,7 +4,7 @@
   "description": "A cover message built with [Eager](https://eager.io).",
   "main": "app.js",
   "scripts": {
-    "watch:js": "onchange -i src/app.js -- node scripts/build.js",
+    "watch:js": "onchange -i src/* -- node scripts/build.js",
     "watch:css": "postcss --watch --use autoprefixer -o build/app.css src/app.css",
     "build": "NODE_ENV=production node scripts/build.js && postcss --use autoprefixer -o build/app.css src/app.css"
   },
@@ -33,6 +33,7 @@
     "postcss-cli": "2.5.2",
     "rollup": "0.25.8",
     "rollup-plugin-babel": "2.4.0",
+    "rollup-plugin-json": "2.0.0",
     "rollup-plugin-node-resolve": "1.5.0"
   }
 }
