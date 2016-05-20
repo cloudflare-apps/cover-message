@@ -118,7 +118,7 @@ import * as renderers from "./renderers"
       const emailInput = element.querySelector("form input[type='email']")
       const submitInput = element.querySelector("form input[type='submit']")
 
-      emailInput.placeholder = "Please fill your email in the Eager app installer."
+      emailInput.placeholder = "Provide your email in the Eager app installer."
       emailInput.disabled = true
       submitInput.disabled = true
     }
