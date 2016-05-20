@@ -1,6 +1,7 @@
 .eager-cover-message {
   bottom: 0;
   display: none;
+  font-size: 16px;
   left: 0;
   position: fixed;
   right: 0;
@@ -36,7 +37,7 @@
 }
 
 .eager-cover-message eager-backdrop {
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 0.8);
   bottom: 0;
   left: 0;
   position: absolute;
@@ -131,7 +132,7 @@
   line-height: 2;
 }
 
-.eager-cover-message eager-dialog-close-button:after {
+.eager-cover-message eager-dialog-close-button::after {
   -webkit-font-smoothing: antialiased;
   border-radius: 3px;
   color: rgba(0, 0, 0, 0.35);
@@ -150,7 +151,7 @@
   z-index: 20007;
 }
 
-.eager-cover-message eager-dialog-close-button:hover:after {
+.eager-cover-message eager-dialog-close-button:hover::after {
   background: rgba(255, 255, 255, 0.35);
   color: #000;
 }
@@ -166,16 +167,16 @@
   -webkit-flex: 0 0 auto;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  font-size: .9em;
+  font-size: 0.9em;
   font-weight: bold;
   height: auto;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   margin-left: 1em;
   max-width: 16em;
   overflow: hidden;
-  padding: .65em 1.6em .6em 1.6em;
+  padding: 0.65em 1.6em 0.6em 1.6em;
   position: relative;
-  text-indent: .08em;
+  text-indent: 0.08em;
   text-overflow: ellipsis;
   text-transform: uppercase;
   vertical-align: baseline;
@@ -198,11 +199,12 @@
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   font-weight: bold;
+  font-size: 0.75em;
   height: auto;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   overflow: hidden;
-  padding: .65em 1.6em .6em .9em;
-  text-indent: .08em;
+  padding: 0.65em 1.1em 0.6em 0.9em;
+  text-indent: 0.08em;
   text-overflow: ellipsis;
   vertical-align: baseline;
   white-space: nowrap;
