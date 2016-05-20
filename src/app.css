@@ -63,6 +63,7 @@
 .eager-cover-message eager-dialog-content {
   display: block;
   color: #444;
+  line-height: 1.65;
   max-width: 100%;
   position: relative;
   width: 37em;
