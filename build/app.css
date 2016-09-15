@@ -19,14 +19,11 @@
 
 .eager-cover-message[data-goal="signupSuccess"] eager-dialog-content-text {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-flow: column;
-      -ms-flex-flow: column;
-          flex-flow: column;
+  -ms-flex-flow: column;
+      flex-flow: column;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
 }
@@ -48,18 +45,15 @@
 
 .eager-cover-message eager-dialog {
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   box-sizing: border-box;
   cursor: default;
   display: block;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
   left: 0;
@@ -91,11 +85,15 @@
   font-family: inherit;
 }
 
+.eager-cover-message eager-dialog-content-text,
+.eager-cover-message input[type="email"] {
+  color: #555;
+}
+
 .eager-cover-message eager-dialog-content-text {
   background: #fff;
   border: 2px solid #efefef;
   border-radius: 2px;
-  color: #555;
   display: block;
   min-height: 8em;
   padding: 1.5em;
@@ -165,7 +163,6 @@
   cursor: pointer;
   display: inline-block;
   -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   font-size: 0.9em;
@@ -196,7 +193,6 @@
   box-shadow: none;
   display: inline-block;
   -webkit-box-flex: 1;
-  -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   font-weight: bold;
@@ -227,15 +223,12 @@
 
 .eager-cover-message form {
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
       -ms-flex-pack: end;
           justify-content: flex-end;
 }
