@@ -1,4 +1,4 @@
-.eager-cover-message {
+cloudflare-app[app="cover-message"] {
   bottom: 0;
   display: none;
   font-size: 16px;
@@ -9,26 +9,41 @@
   z-index: 10000;
 }
 
-.eager-cover-message[data-visibility="visible"] {
+cloudflare-app[app="cover-message"].cf-invalid cf-dialog-content-title,
+cloudflare-app[app="cover-message"].cf-invalid cf-dialog-close-button,
+cloudflare-app[app="cover-message"].cf-invalid cf-signup-text,
+cloudflare-app[app="cover-message"].cf-invalid input[type="submit"] {
+  filter: blur(2px);
+}
+cloudflare-app[app="cover-message"].cf-invalid input[type='email'] {
+  outline: 2px solid red;
+
+}
+
+cloudflare-app[app="cover-message"][data-visibility="visible"] {
   display: block;
 }
 
-.eager-cover-message[data-goal="signupSuccess"] {
+cloudflare-app[app="cover-message"][data-goal="signupSuccess"] {
   text-align: center;
 }
 
-.eager-cover-message[data-goal="signupSuccess"] eager-dialog-content-text {
+cloudflare-app[app="cover-message"][data-goal="signupSuccess"] cf-dialog-content-text {
   display: flex;
   flex-flow: column;
   justify-content: center;
 }
 
-.eager-cover-message[data-form="submitting"] eager-dialog,
-.eager-cover-message[data-goal="submitting"] input[type="submit"] {
+cloudflare-app[app="cover-message"][data-goal="signupSuccess"] cf-signup-text {
+  display: block;
+}
+
+cloudflare-app[app="cover-message"][data-form="submitting"] cf-dialog,
+cloudflare-app[app="cover-message"][data-goal="submitting"] input[type="submit"] {
   cursor: wait;
 }
 
-.eager-cover-message eager-backdrop {
+cloudflare-app[app="cover-message"] cf-backdrop {
   background: rgba(0, 0, 0, 0.8);
   bottom: 0;
   left: 0;
@@ -38,7 +53,7 @@
   z-index: 20004;
 }
 
-.eager-cover-message eager-dialog {
+cloudflare-app[app="cover-message"] cf-dialog {
   align-items: center;
   box-sizing: border-box;
   cursor: default;
@@ -55,12 +70,12 @@
 }
 
 @media (max-width: 768px) {
-  .eager-cover-message eager-dialog {
+  cloudflare-app[app="cover-message"] cf-dialog {
     padding: 1em;
   }
 }
 
-.eager-cover-message eager-dialog-content {
+cloudflare-app[app="cover-message"] cf-dialog-content {
   display: block;
   color: #444;
   line-height: 1.65;
@@ -69,17 +84,17 @@
   width: 37em;
 }
 
-.eager-cover-message eager-dialog-content,
-.eager-cover-message eager-dialog-content * {
+cloudflare-app[app="cover-message"] cf-dialog-content,
+cloudflare-app[app="cover-message"] cf-dialog-content * {
   font-family: inherit;
 }
 
-.eager-cover-message eager-dialog-content-text,
-.eager-cover-message input[type="email"] {
+cloudflare-app[app="cover-message"] cf-dialog-content-text,
+cloudflare-app[app="cover-message"] input[type="email"] {
   color: #555;
 }
 
-.eager-cover-message eager-dialog-content-text {
+cloudflare-app[app="cover-message"] cf-dialog-content-text {
   background: #fff;
   border: 2px solid #efefef;
   border-radius: 2px;
@@ -90,37 +105,37 @@
 }
 
 @media (max-width: 480px) {
-  .eager-cover-message eager-dialog-content-text {
+  cloudflare-app[app="cover-message"] cf-dialog-content-text {
     padding: 1em;
   }
 }
 
-.eager-cover-message eager-dialog-content-text > * {
+cloudflare-app[app="cover-message"] cf-dialog-content-text > * {
   text-indent: 0;
   margin: 1em 0;
 }
 
-.eager-cover-message eager-dialog-content-text a {
+cloudflare-app[app="cover-message"] cf-dialog-content-text a {
   text-decoration: none;
   font-weight: bold;
 }
 
-.eager-cover-message eager-dialog-content-text > *:first-child {
+cloudflare-app[app="cover-message"] cf-dialog-content-text > *:first-child {
   margin-top: 0;
 }
 
-.eager-cover-message eager-dialog-content-text > *:last-child {
+cloudflare-app[app="cover-message"] cf-dialog-content-text > *:last-child {
   margin-bottom: 0;
 }
 
-.eager-cover-message eager-dialog-content-title {
+cloudflare-app[app="cover-message"] cf-dialog-content-title {
   display: block;
   font-size: 1.5em;
   font-weight: bold;
   line-height: 2;
 }
 
-.eager-cover-message eager-dialog-close-button::after {
+cloudflare-app[app="cover-message"] cf-dialog-close-button::after {
   -webkit-font-smoothing: antialiased;
   border-radius: 3px;
   color: rgba(0, 0, 0, 0.35);
@@ -139,12 +154,12 @@
   z-index: 20007;
 }
 
-.eager-cover-message eager-dialog-close-button:hover::after {
+cloudflare-app[app="cover-message"] cf-dialog-close-button:hover::after {
   background: rgba(255, 255, 255, 0.35);
   color: #000;
 }
 
-.eager-cover-message input[type="submit"] {
+cloudflare-app[app="cover-message"] input[type="submit"] {
   border-radius: 0.1875em;
   border: 0;
   box-shadow: none;
@@ -169,12 +184,12 @@
   width: auto;
 }
 
-.eager-cover-message input[type="submit"]:disabled {
+cloudflare-app[app="cover-message"] input[type="submit"]:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-.eager-cover-message input[type="email"] {
+cloudflare-app[app="cover-message"] input[type="email"] {
   border-bottom: 1px solid transparent;
   border: 0;
   box-shadow: none;
@@ -193,20 +208,24 @@
   width: auto;
 }
 
-.eager-cover-message input[type="email"]:hover {
+cloudflare-app[app="cover-message"] input[type="email"]:hover {
   border-bottom-color: #ddd;
 }
 
-.eager-cover-message input[type="email"]:focus {
+cloudflare-app[app="cover-message"] input[type="email"]:focus {
   border-bottom-color: #ccc;
   outline: none;
 }
 
-.eager-cover-message input[type="email"]:disabled {
-  background-color: #FFFFD6;
+cloudflare-app[app="cover-message"] input[type="email"]:disabled {
+  background-color: #fdf1f1;
 }
 
-.eager-cover-message form {
+cloudflare-app[app="cover-message"] input[type="email"]:disabled::placeholder {
+  color: #000;
+}
+
+cloudflare-app[app="cover-message"] form {
   align-items: center;
   display: flex;
   justify-content: flex-end;
