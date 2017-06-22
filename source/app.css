@@ -188,6 +188,7 @@ cloudflare-app[app="cover-message"] input[type="submit"] {
   overflow: hidden;
   padding: .6em 1em;
   height: 2.8em;
+  line-height: 1;
   position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -212,8 +213,8 @@ cloudflare-app[app="cover-message"] input[type="email"] {
   border-top-color: rgba(0, 0, 0, .24);
   padding: .6em 1em;
   height: 2.8em;
+  line-height: 1;
   box-shadow: none;
-  line-height: initial;
   border-radius: .1875em;
 }
 
