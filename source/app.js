@@ -106,7 +106,7 @@ import * as renderers from './renderers'
 
     if (formElement) {
       formElement.addEventListener('submit', submitHandlers[options.goal])
-      formElement.querySelector("input[type='submit']").style.backgroundColor = options.color
+      formElement.style.cssText = `--cloudflare-apps-cover-message-accent-color: ${ options.color }`
     }
 
     closeButton.addEventListener('click', hide)
@@ -117,7 +117,7 @@ import * as renderers from './renderers'
       const submitInput = element.querySelector("form input[type='submit']")
 
       element.classList.add('cf-invalid')
-      emailInput.placeholder = 'Provide your email in the Cloudflare app installer.'
+      emailInput.placeholder = 'Please set an email in the installer.'
       emailInput.disabled = true
       submitInput.disabled = true
     }

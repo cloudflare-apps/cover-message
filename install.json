@@ -57,7 +57,7 @@
         "title": "Message text",
         "format": "textarea",
         "type": "string",
-        "default": "We just launched an amazing new product!"
+        "default": "We just launched an amazing new product."
       },
 
       "ctaButtonText": {
@@ -67,7 +67,7 @@
         },
         "title": "Button text",
         "type": "string",
-        "default": "Take me there!"
+        "default": "Check it out"
       },
 
       "ctaLinkAddress": {
@@ -152,7 +152,7 @@
         },
         "title": "Message title",
         "type": "string",
-        "default": "Sign up"
+        "default": "Sign up for our newsletter"
       },
 
       "signupText": {
@@ -163,7 +163,7 @@
         "title": "Message text",
         "format": "textarea",
         "type": "string",
-        "default": "Join our mailing list to be the first to know what we’re up to!"
+        "default": "Join our mailing list to be the first to know what we’re up to."
       },
       "signupInputPlaceholder": {
         "order": 12,
@@ -181,7 +181,7 @@
         },
         "title": "Button text",
         "type": "string",
-        "default": "Sign up!"
+        "default": "Sign up"
       },
       "signupSuccessTitle": {
         "order": 14,
@@ -201,7 +201,7 @@
         "title": "Thank you text",
         "description": "This text will display after visitors enter their email.",
         "type": "string",
-        "default": "You'll be kept up to date with our newsletter."
+        "default": "You’ll be kept up to date with our newsletter."
       },
 
       "announcementTitle": {
@@ -232,7 +232,7 @@
         },
         "title": "Button text",
         "type": "string",
-        "default": "Got it!"
+        "default": "Got it"
       },
 
       "color": {
