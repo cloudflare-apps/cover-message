@@ -14,6 +14,10 @@
   "preview": {
     "handlers": [
       {
+        "options": ["color"],
+        "execute": "INSTALL_SCOPE.setColor(INSTALL_OPTIONS)"
+      },
+      {
         "options": ["*"],
         "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
       }

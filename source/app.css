@@ -4,9 +4,6 @@ cloudflare-app[app="cover-message"] * {
 }
 
 cloudflare-app[app="cover-message"] {
-  /* Default, to be overridden with JS */
-  --cloudflare-apps-cover-message-accent-color: #0099ff;
-
   bottom: 0;
   display: none;
   font-size: 16px;
@@ -175,7 +172,6 @@ cloudflare-app[app="cover-message"] cf-dialog-close-button::after {
 }
 
 cloudflare-app[app="cover-message"] input[type="submit"] {
-  background: var(--cloudflare-apps-cover-message-accent-color);
   border-radius: 0.1875em;
   border: 1px solid transparent;
   box-shadow: none;
@@ -240,7 +236,6 @@ cloudflare-app[app="cover-message"].cf-invalid input[type='email']:disabled::pla
 }
 
 cloudflare-app[app="cover-message"] input[type="email"]:focus {
-  border-color: var(--cloudflare-apps-cover-message-accent-color);
   outline: none;
 }
 

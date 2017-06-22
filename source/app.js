@@ -9,6 +9,7 @@ import * as renderers from './renderers'
   const preview = INSTALL_ID === 'preview'
   let options = INSTALL_OPTIONS
   let element
+  const style = document.createElement('style')
 
   function delegateEmailSubmit (receiver, callback) {
     if (options.signupDestination === 'email' && options.email) {
@@ -67,6 +68,17 @@ import * as renderers from './renderers'
     }
   }
 
+  function updateStyle () {
+    style.innerHTML = `
+      cloudflare-app[app="cover-message"] input[type="submit"] {
+        background: ${options.color};
+      }
+      cloudflare-app[app="cover-message"] input[type="email"]:focus {
+        border-color: ${options.color};
+      }
+    `
+  }
+
   function updateElement () {
     try {
       window.localStorage.cfCoverMessageShown = JSON.stringify(options)
@@ -99,6 +111,9 @@ import * as renderers from './renderers'
       </cf-dialog>
     `
 
+    updateStyle()
+    element.appendChild(style)
+
     element.querySelector('cf-dialog').addEventListener('click', hide)
 
     const formElement = element.querySelector('form')
@@ -106,7 +121,6 @@ import * as renderers from './renderers'
 
     if (formElement) {
       formElement.addEventListener('submit', submitHandlers[options.goal])
-      formElement.style.cssText = `--cloudflare-apps-cover-message-accent-color: ${ options.color }`
     }
 
     closeButton.addEventListener('click', hide)
@@ -142,6 +156,11 @@ import * as renderers from './renderers'
       options = nextOptions
 
       updateElement()
+    },
+    setColor (nextOptions) {
+      options = nextOptions
+
+      updateStyle()
     }
   }
 }())
