@@ -241,6 +241,7 @@ cloudflare-app[app="cover-message"] input[type="email"]:focus {
 }
 
 cloudflare-app[app="cover-message"] form {
+  width: 100%;
   margin-top: 1.75em;
   align-items: center;
   display: flex;
