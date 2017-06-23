@@ -177,6 +177,7 @@ cloudflare-app[app="cover-message"] input[type="submit"] {
   box-shadow: none;
   color: #fff;
   cursor: pointer;
+  font: inherit;
   font-weight: bold;
   flex: 0 0 auto;
   margin-left: 1em;
@@ -199,7 +200,7 @@ cloudflare-app[app="cover-message"] input[type="submit"]:disabled {
 cloudflare-app[app="cover-message"] input[type="email"] {
   -webkit-appearance: none;
   appearance: none;
-  font-family: inherit;
+  font: inherit;
   width: 100%;
   -webkit-tap-highlight-color: transparent;
   text-rendering: optimizeLegibility;
