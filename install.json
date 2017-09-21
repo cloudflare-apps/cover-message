@@ -81,7 +81,7 @@
         },
         "title": "URL to drive traffic to",
         "type": "string",
-        "placeholder": "https://..."
+        "format": "url"
       },
 
       "signupDestination": {
@@ -110,9 +110,8 @@
           "signupDestination": "email"
         },
         "title": "What email address should signups be sent to?",
-        "description": "<strong>Required</strong>",
         "required": true,
-        "placeholder": "you@email.com",
+        "format": "email",
         "type": "string"
       },
 

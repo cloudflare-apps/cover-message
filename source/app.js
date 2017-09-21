@@ -64,7 +64,7 @@ import * as renderers from './renderers'
     announcement (event) {
       event.preventDefault()
 
-      element.setAttribute('data-visibility', 'hidden')
+      hide()
     }
   }
 
