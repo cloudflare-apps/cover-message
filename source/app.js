@@ -1,4 +1,4 @@
-import {submitConstantContact, submitFormspree, submitMailchimp} from 'cf-email-utils'
+import {submitConstantContact, submitFormspree, submitMailchimp} from '@cloudflare-apps/email-utils'
 import * as renderers from './renderers'
 
 (function () {
